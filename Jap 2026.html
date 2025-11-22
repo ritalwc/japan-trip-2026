@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 日本 CHUR 到爆之行 (V10)</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --transport-color: #3498db;
+            --hotel-color: #9b59b6;
+            --food-color: #f1c40f;
+            --sight-color: #27ae60;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Checklist Section */
+        .checklist-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .checklist-card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        .checklist-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.9rem;
+        }
+
+        .check-item input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        /* Itinerary Section */
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .day-header {
+            padding: 15px 20px;
+            background-color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .day-header h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .day-date {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            display: block;
+        }
+
+        .toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .day-content {
+            display: none;
+            padding: 0;
+        }
+
+        .day-content.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            list-style: none;
+            padding: 20px;
+            margin: 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: 29px;
+            width: 2px;
+            background: #e0e0e0;
+        }
+
+        .event {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 25px;
+        }
+
+        .event::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--primary-color);
+            z-index: 1;
+        }
+
+        .event.transport::after { border-color: var(--transport-color); background: var(--transport-color); }
+        .event.hotel::after { border-color: var(--hotel-color); background: var(--hotel-color); }
+        .event.food::after { border-color: var(--food-color); background: var(--food-color); }
+        .event.sight::after { border-color: var(--sight-color); background: var(--sight-color); }
+
+        .time {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .desc {
+            font-size: 0.9rem;
+            color: #555;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+
+        .desc a {
+            color: var(--transport-color);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: white;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .tag.transport { background-color: var(--transport-color); }
+        .tag.hotel { background-color: var(--hotel-color); }
+        .tag.food { background-color: var(--food-color); color: #333; }
+        .tag.sight { background-color: var(--sight-color); }
+
+        .weather-info {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .timeline::before { left: 19px; }
+            .event { padding-left: 30px; }
+            .event::after { left: -6px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🇯🇵 2026 日本 CHUR 到爆之行</h1>
+    <p>2月7日 - 2月18日 | 東京・川越・草津・輕井澤・秋田・青森</p>
+</header>
+
+<div class="container">
+
+    <!-- Pre-trip Checklist -->
+    <div class="checklist-card">
+        <h3>📝 出發前預定 & 任務</h3>
+        <div class="checklist-items">
+            <div class="check-item"><input type="checkbox" checked> 機票 (7/2 去, 17/2 Rita 返, 18/2 其他人返)</div>
+            <div class="check-item"><input type="checkbox" checked> 酒店 (全部已訂)</div>
+            <div class="check-item"><input type="checkbox"> Klook Skyliner Narita <> 日暮里</div>
+            <div class="check-item"><input type="checkbox"> Klook 川越周遊券</div>
+            <div class="check-item"><input type="checkbox"> 巴士: 東京車站 -> 草津 (10/1 開訂)</div>
+            <div class="check-item"><input type="checkbox"> JR 5 Day Pass & 預約新幹線 (11/1 開訂)</div>
+            <div class="check-item"><input type="checkbox"> Day 2 任務: 準備洗錢 (六合彩)</div>
+            <div class="check-item"><input type="checkbox"> 旅保 & 電話卡</div>
+        </div>
+    </div>
+
+    <!-- Day 1 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月7日 (六)</span>
+                <h2>Day 1: 香港 ✈️ 東京</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <div class="weather-info">🌡️ 東京 10° / 5°</div>
+            <ul class="timeline">
+                <li class="event transport">
+                    <span class="time">09:00 - 18:00</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">香港 -> 成田機場 (NRT)</span>
+                    <div class="desc">
+                        Cat & Cherie: JL736 (10:20-15:20)<br>
+                        Sa: CX450 (10:00-16:50)<br>
+                        Rita: (09:25-14:20)<br>
+                        *抵達後預留1小時過關。T2 JR東日本旅遊中心兌換JR PASS。
+                    </div>
+                </li>
+                <li class="event transport">
+                    <span class="time">18:30 - 20:00</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">機場 -> 酒店</span>
+                    <div class="desc">
+                        Skyliner #166 (19:19) -> 日暮里 -> JR山手線 -> 新橋<br>
+                        步行15分鐘至酒店。
+                    </div>
+                </li>
+                <li class="event hotel">
+                    <span class="time">20:00</span>
+                    <span class="tag hotel">住宿</span>
+                    <span class="title">ibis Styles Tokyo Ginza</span>
+                    <div class="desc">銀座7丁目10-9。</div>
+                </li>
+                <li class="event food">
+                    <span class="time">20:30</span>
+                    <span class="tag food">晚餐</span>
+                    <span class="title">新橋/銀座周邊</span>
+                    <div class="desc">
+                        選擇：銀座深夜餃子、鮨とラーメン うおがしや、新橋迴轉壽司一番本店。<br>
+                        飯後可逛 Donki 銀座 (24H)。
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月8日 (日)</span>
+                <h2>Day 2: 川越 (小江戶) & 池袋</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <ul class="timeline">
+                <li class="event transport">
+                    <span class="time">08:20 - 09:30</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">前往川越</span>
+                    <div class="desc">新橋 -> 池袋 (JR山手線) -> 川越 (東武東上線)<br>*建議購買川越周遊券。</div>
+                </li>
+                <li class="event sight">
+                    <span class="time">09:30 - 15:30</span>
+                    <span class="tag sight">景點</span>
+                    <span class="title">川越觀光</span>
+                    <div class="desc">
+                        1. 冰川神社 (釣鯛魚求籤、繪馬隧道)<br>
+                        2. 喜多院、仙波東照宮<br>
+                        3. 熊野神社 (洗錢、套圈圈)<br>
+                        4. 時之鐘 & 星巴克時鐘小路店<br>
+                        5. 大正浪漫夢通
+                    </div>
+                </li>
+                <li class="event food">
+                    <span class="time">午餐</span>
+                    <span class="tag food">美食</span>
+                    <span class="title">川越美食</span>
+                    <div class="desc">小川菊鰻魚飯 (記得12:00前抽號碼牌)、OHANA GRILL (親子丼)。</div>
+                </li>
+                <li class="event sight">
+                    <span class="time">16:30 - 20:00</span>
+                    <span class="tag sight">購物</span>
+                    <span class="title">池袋 Shopping</span>
+                    <div class="desc">
+                        Pokémon Center Mega Tokyo (Sunshine City)<br>
+                        OWNDAYS (配眼鏡)<br>
+                        池袋東武百貨店 (7% Discount)
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月9日 (一)</span>
+                <h2>Day 3: 東京市區 (豪德寺/上野/銀座)</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <div class="weather-info">🌡️ 東京 10° / 5°</div>
+            <ul class="timeline">
+                <li class="event sight">
+                    <span class="time">07:30 - 10:00</span>
+                    <span class="tag sight">景點</span>
+                    <span class="title">豪德寺 (招財貓神社)</span>
+                    <div class="desc">交通：新橋 -> 表參道 -> 代代木上原 -> 豪德寺站。</div>
+                </li>
+                <li class="event sight">
+                    <span class="time">10:00 - 13:00</span>
+                    <span class="tag sight">購物</span>
+                    <span class="title">上野</span>
+                    <div class="desc">玩具店 Yamashiroya、阿美橫丁藥妝/大黑屋。</div>
+                </li>
+                <li class="event sight">
+                    <span class="time">13:30 - 19:00</span>
+                    <span class="tag sight">購物</span>
+                    <span class="title">銀座 & 午餐</span>
+                    <div class="desc">
+                        午餐：Ginza Sushi Roku (需預約)<br>
+                        購物：WSP 珍珠、Uniqlo、無印良品旗艦店、LOFT、Brand Off。
+                    </div>
+                </li>
+                <li class="event sight">
+                    <span class="time">19:00 - 22:00</span>
+                    <span class="tag sight">景點</span>
+                    <span class="title">新宿 (視情況)</span>
+                    <div class="desc">3D貓看板、歌舞伎町、哥斯拉。</div>
+                </li>
+                <li class="event">
+                    <span class="time">⚠️ 任務</span>
+                    <span class="title">執行李</span>
+                    <div class="desc">明天去草津，只帶輕便行李。大行李寄放或宅配。</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月10日 (二)</span>
+                <h2>Day 4: 東京 -> 草津溫泉</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <div class="weather-info">🌡️ 草津 3° / -9° (有雨)</div>
+            <ul class="timeline">
+                <li class="event transport">
+                    <span class="time">08:00 - 12:00</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">前往草津 (巴士方案)</span>
+                    <div class="desc">東京站八重洲南口 -> 草津溫泉巴士總站 (約4小時)。<br>或者搭新幹線到輕井澤轉巴士。</div>
+                </li>
+                <li class="event hotel">
+                    <span class="time">12:00</span>
+                    <span class="tag hotel">住宿</span>
+                    <span class="title">木葉酒店 (Konoha)</span>
+                    <div class="desc">先寄放行李。</div>
+                </li>
+                <li class="event sight">
+                    <span class="time">13:00 - 17:00</span>
+                    <span class="tag sight">景點</span>
+                    <span class="title">草津溫泉街</span>
+                    <div class="desc">
+                        1. 湯畑 (必看)<br>
+                        2. 熱乃湯 (湯揉表演)<br>
+                        3. 西之河原公園 (露天溫泉)<br>
+                        美食：上州地粉寬烏龍麵 (まつもと)、溫泉布丁。
+                    </div>
+                </li>
+                <li class="event food">
+                    <span class="time">17:00</span>
+                    <span class="tag food">晚餐</span>
+                    <span class="title">酒店 Buffet</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月11日 (三)</span>
+                <h2>Day 5: 草津 -> 輕井澤</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <div class="weather-info">🌡️ 輕井澤 4° / -8°</div>
+            <ul class="timeline">
+                <li class="event transport">
+                    <span class="time">10:45 - 12:30</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">草津 -> 輕井澤</span>
+                    <div class="desc">草輕巴士 (約80分鐘, ¥2,240)。</div>
+                </li>
+                <li class="event hotel">
+                    <span class="time">12:30</span>
+                    <span class="tag hotel">住宿</span>
+                    <span class="title">APA Hotel 輕井澤站前</span>
+                    <div class="desc">領回 Day 1 寄送的行李。</div>
+                </li>
+                <li class="event sight">
+                    <span class="time">13:00 - 19:00</span>
+                    <span class="tag sight">購物</span>
+                    <span class="title">輕井澤王子購物廣場 (Outlet)</span>
+                    <div class="desc">
+                        先去服務中心領優惠券。<br>
+                        美食：明治亭炸豬排、Yamahei 蕎麥麵。
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月12日 (四)</span>
+                <h2>Day 6: 輕井澤 -> 秋田</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <ul class="timeline">
+                <li class="event sight">
+                    <span class="time">08:00 - 15:00</span>
+                    <span class="tag sight">景點</span>
+                    <span class="title">輕井澤觀光</span>
+                    <div class="desc">
+                        中輕井澤：榆樹街小鎮、高原教會、石之教會。<br>
+                        舊輕井澤：銀座通、聖保羅教堂。<br>
+                        *白絲瀑布 & 雲場池 (冬天可能不推薦/取消)。
+                    </div>
+                </li>
+                <li class="event transport">
+                    <span class="time">15:56 - 21:04</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">移動到秋田 (新幹線)</span>
+                    <div class="desc">
+                        1. Hakutaka (15:56 輕井澤 -> 16:47 大宮)<br>
+                        2. Komachi #35 (17:45 大宮 -> 21:04 秋田)<br>
+                        *在大宮站買便當。
+                    </div>
+                </li>
+                <li class="event hotel">
+                    <span class="time">21:15</span>
+                    <span class="tag hotel">住宿</span>
+                    <span class="title">秋田站前里士滿酒店</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月13日 (五)</span>
+                <h2>Day 7: 五能線 & 不老不死溫泉</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <div class="weather-info">🌡️ 秋田 4° / -3°</div>
+            <ul class="timeline">
+                <li class="event food">
+                    <span class="time">06:50</span>
+                    <span class="tag food">早餐</span>
+                    <span class="title">Café 赤居文庫</span>
+                    <div class="desc">點飲料送早餐 (昭和風)。</div>
+                </li>
+                <li class="event transport">
+                    <span class="time">08:19 - 10:37</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">Resort 白神號 #1 (橅)</span>
+                    <div class="desc">秋田 -> WeSPa 椿山站。<br>全車指定席，需預約 A 席 (靠海)。</div>
+                </li>
+                <li class="event hotel">
+                    <span class="time">11:00</span>
+                    <span class="tag hotel">住宿</span>
+                    <span class="title">黃金崎不老不死溫泉</span>
+                    <div class="desc">
+                        必去：海邊露天溫泉 (混浴/女湯)。<br>
+                        晚餐：海鮮自助餐。
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 8 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月14日 (六)</span>
+                <h2>Day 8: 五能線 -> 青森市</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <div class="weather-info">🌡️ 青森 2° / -4°</div>
+            <ul class="timeline">
+                <li class="event transport">
+                    <span class="time">10:38 - 13:34</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">椿山 -> 青森</span>
+                    <div class="desc">
+                        10:38 (普通車) -> 椿山 -> 私鐵 -> 13:34 青森。<br>
+                        *因白神號班次時間不合，改搭普通車。
+                    </div>
+                </li>
+                <li class="event hotel">
+                    <span class="time">14:00</span>
+                    <span class="tag hotel">住宿</span>
+                    <span class="title">露櫻酒店青森站前店</span>
+                </li>
+                <li class="event sight">
+                    <span class="time">14:30 - 18:30</span>
+                    <span class="tag sight">景點</span>
+                    <span class="title">青森市區觀光</span>
+                    <div class="desc">
+                        1. 廣田神社 (蘋果手水舍)<br>
+                        2. 睡魔之家 Warasse<br>
+                        3. A-FACTORY (蘋果伴手禮)<br>
+                        4. 觀光物產館 ASPAM
+                    </div>
+                </li>
+                <li class="event food">
+                    <span class="time">晚餐</span>
+                    <span class="tag food">美食</span>
+                    <span class="title">青森美食</span>
+                    <div class="desc">お食事処おさない (干貝料理)。</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 9 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月15日 (日)</span>
+                <h2>Day 9: 弘前一日遊</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <ul class="timeline">
+                <li class="event food">
+                    <span class="time">07:00</span>
+                    <span class="tag food">早餐</span>
+                    <span class="title">古川市場 (自助海鮮丼)</span>
+                    <div class="desc">購買餐券，自選生魚片配飯。</div>
+                </li>
+                <li class="event transport">
+                    <span class="time">09:04 - 09:38</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">青森 -> 弘前</span>
+                    <div class="desc">JR 奧羽本線 #42。</div>
+                </li>
+                <li class="event sight">
+                    <span class="time">10:00 - 17:00</span>
+                    <span class="tag sight">景點</span>
+                    <span class="title">弘前觀光</span>
+                    <div class="desc">
+                        交通：土手町循環巴士 (¥150)。<br>
+                        1. 弘前城 / 弘前公園 (冬之櫻點燈)<br>
+                        2. 倉庫美術館 (奈良美智犬)<br>
+                        3. 舊弘前市立圖書館<br>
+                        4. 虹之市場 (熟食)
+                    </div>
+                </li>
+                <li class="event transport">
+                    <span class="time">18:03 - 18:38</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">弘前 -> 青森</span>
+                    <div class="desc">JR 奧羽本線 #43。</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 10 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月16日 (一)</span>
+                <h2>Day 10: 青森 -> 東京 (豐洲)</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <ul class="timeline">
+                <li class="event transport">
+                    <span class="time">09:53 - 13:04</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">新青森 -> 東京</span>
+                    <div class="desc">新幹線 Hayabusa 14 (指定席)。</div>
+                </li>
+                <li class="event hotel">
+                    <span class="time">14:00</span>
+                    <span class="tag hotel">住宿</span>
+                    <span class="title">Tokyo Toyosu Manyo Club</span>
+                    <div class="desc">豐洲萬葉俱樂部 (溫泉飯店)。<br>晚餐：酒店 Buffet (17:00~)。</div>
+                </li>
+                <li class="event sight">
+                    <span class="time">16:00 - 20:00</span>
+                    <span class="tag sight">購物</span>
+                    <span class="title">東京車站</span>
+                    <div class="desc">大丸百貨、一番街、拉麵街、買年輪蛋糕。</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 11 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月17日 (二)</span>
+                <h2>Day 11: 豐洲市場 & Rita 返港</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <ul class="timeline">
+                <li class="event sight">
+                    <span class="time">09:30 - 11:00</span>
+                    <span class="tag sight">景點</span>
+                    <span class="title">豐洲市場 (千客萬來)</span>
+                    <div class="desc">美食街吃生蠔。</div>
+                </li>
+                <li class="event transport">
+                    <span class="time">11:00</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">Rita 前往機場</span>
+                    <div class="desc">15:30 飛機，需 12:30 到達成田。</div>
+                </li>
+                <li class="event hotel">
+                    <span class="time">13:00</span>
+                    <span class="tag hotel">住宿</span>
+                    <span class="title">Hotel Tokyo Trip Ueno Nishi Nippori</span>
+                    <div class="desc">Cherie, Sa, Cat 換酒店到西日暮里。</div>
+                </li>
+                <li class="event sight">
+                    <span class="time">下午</span>
+                    <span class="tag sight">購物</span>
+                    <span class="title">自由活動</span>
+                    <div class="desc">原宿、澀谷、東京站。</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Day 12 -->
+    <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+            <div>
+                <span class="day-date">2月18日 (三)</span>
+                <h2>Day 12: 返港 (Cherie, Sa, Cat)</h2>
+            </div>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="day-content">
+            <ul class="timeline">
+                <li class="event sight">
+                    <span class="time">09:00 - 13:00</span>
+                    <span class="tag sight">景點</span>
+                    <span class="title">最後衝刺</span>
+                    <div class="desc">
+                        1. 谷中銀座商店街 (夕陽階梯)<br>
+                        2. 日暮里纖維街<br>
+                        3. 淺草 (Yoroshi 化粧堂)
+                    </div>
+                </li>
+                <li class="event transport">
+                    <span class="time">13:25 - 14:01</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">日暮里 -> 成田機場</span>
+                    <div class="desc">Skyliner (最遲 14:00 前要出發)。</div>
+                </li>
+                <li class="event transport">
+                    <span class="time">18:40</span>
+                    <span class="tag transport">交通</span>
+                    <span class="title">JL735 東京 -> 香港</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleDay(header) {
+        const content = header.nextElementSibling;
+        const icon = header.querySelector('.toggle-icon');
+        
+        content.classList.toggle('active');
+        
+        if (content.classList.contains('active')) {
+            icon.textContent = '-';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            icon.textContent = '+';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
+
+</body>
+</html>
