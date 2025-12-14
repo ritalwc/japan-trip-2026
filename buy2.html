@@ -10,14 +10,383 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            font-family: 'Arial', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .btn-import {
+            background: #28a745;
+        }
+
+        .btn-import:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-export {
+            background: #17a2b8;
+        }
+
+        .btn-export:hover {
+            background: #138496;
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: #dc3545;
+        }
+
+        .btn-reset:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        /* ========== GitHub 同步按鈕樣式 ========== */
+        .btn-github-upload {
+            background: #6f42c1;
+        }
+
+        .btn-github-upload:hover {
+            background: #5a32a3;
+            transform: translateY(-2px);
+        }
+
+        .btn-github-download {
+            background: #fd7e14;
+        }
+
+        .btn-github-download:hover {
+            background: #e96b02;
+            transform: translateY(-2px);
+        }
+
+        .btn-github-settings {
+            background: #6c757d;
+        }
+
+        .btn-github-settings:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        /* ========== GitHub 同步按鈕樣式結束 ========== */
+
+        .add-category-section {
+            padding: 30px;
+            border-bottom: 2px solid #f0f0f0;
+            background: #f8f9fa;
+        }
+
+        .category-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .category-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .category-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-add-category {
+            background: #667eea;
+            padding: 12px 30px;
+        }
+
+        .btn-add-category:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .categories-list {
+            padding: 30px;
+        }
+
+        .category-section {
+            margin-bottom: 30px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .category-header:hover {
+            background: linear-gradient(135deg, #7b8ff0 0%, #8a5bb0 100%);
+        }
+
+        .category-title-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .toggle-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .toggle-icon.expanded {
+            transform: rotate(90deg);
+        }
+
+        .category-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .category-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit-category {
+            background: #ffc107;
+            padding: 8px 15px;
+        }
+
+        .btn-edit-category:hover {
+            background: #e0a800;
+        }
+
+        .btn-delete-category {
+            background: #dc3545;
+            padding: 8px 15px;
+        }
+
+        .btn-delete-category:hover {
+            background: #c82333;
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .category-content.expanded {
+            max-height: 10000px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .add-item-section {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 2fr 2fr 2fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .input-field {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.9em;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-add-item {
+            background: #667eea;
+            grid-column: 1 / -1;
+            padding: 10px;
+        }
+
+        .btn-add-item:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .items-list {
+            padding: 20px;
+        }
+
+        .item-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .item-card:hover {
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .item-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            word-break: break-word;
+        }
+
+        .item-name.checked {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .item-link {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.85em;
+            word-break: break-all;
+            display: inline-block;
+            margin-top: 3px;
+        }
+
+        .item-link:hover {
+            text-decoration: underline;
+        }
+
+        .item-image {
+            flex-shrink: 0;
+        }
+
+        .item-image img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            padding: 6px 12px;
+            font-size: 0.85em;
+            min-width: 60px;
+        }
+
+        .btn-edit:hover {
+            background: #e0a800;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            padding: 6px 12px;
+            font-size: 0.85em;
+            min-width: 60px;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-category-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* ========== 返回按鈕樣式 ========== */
         .back-btn {
             position: fixed;
             top: 20px;
@@ -36,739 +405,784 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .back-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            background: #fff;
         }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding-top: 60px;
+
+        @media (max-width: 768px) {
+            .back-btn {
+                top: 10px;
+                left: 10px;
+                padding: 10px 15px;
+                font-size: 12px;
+            }
         }
-        
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 30px;
-        }
-        
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        
-        .sync-status {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        
-        .sync-status.synced {
-            background: rgba(39, 174, 96, 0.3);
-        }
-        
-        .sync-status.syncing {
-            background: rgba(241, 196, 15, 0.3);
-        }
-        
-        .sync-status.error {
-            background: rgba(231, 76, 60, 0.3);
-        }
-        
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-primary {
-            background: #00b894;
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: rgba(255,255,255,0.9);
-            color: #333;
-        }
-        
-        .btn-danger {
-            background: #e74c3c;
-            color: white;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-        
-        .category-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-        
-        .category-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .item-list {
-            list-style: none;
-        }
-        
-        .item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            background: #f8f9fa;
-            transition: all 0.2s ease;
-        }
-        
-        .item:hover {
-            background: #e9ecef;
-        }
-        
-        .item.checked {
-            opacity: 0.6;
-            text-decoration: line-through;
-        }
-        
-        .item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
-            cursor: pointer;
-        }
-        
-        .item-name {
-            flex: 1;
-            font-size: 16px;
-        }
-        
-        .item-price {
-            color: #e74c3c;
-            font-weight: 600;
-            margin-right: 12px;
-        }
-        
-        .delete-btn {
-            background: none;
-            border: none;
-            color: #999;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 4px 8px;
-        }
-        
-        .delete-btn:hover {
-            color: #e74c3c;
-        }
-        
-        .add-item-form {
-            display: flex;
-            gap: 10px;
-            margin-top: 16px;
-        }
-        
-        .add-item-form input {
-            flex: 1;
-            padding: 10px 16px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        
-        .add-item-form input:focus {
-            outline: none;
-            border-color: #0984e3;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-        
-        .empty-state .icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-        }
-        
-        /* GitHub Config Modal */
-        .modal {
+        /* ========== 返回按鈕樣式結束 ========== */
+
+        /* ========== GitHub 設定彈窗樣式 ========== */
+        .modal-overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
-            z-index: 2000;
         }
-        
-        .modal.active {
+
+        .modal-overlay.active {
             display: flex;
         }
-        
+
         .modal-content {
             background: white;
-            border-radius: 16px;
-            padding: 32px;
+            padding: 30px;
+            border-radius: 15px;
             max-width: 500px;
             width: 90%;
-            max-height: 80vh;
+            max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-        
+
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
-        }
-        
-        .modal-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-        
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
-        }
-        
-        .form-group {
             margin-bottom: 20px;
         }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
+
+        .modal-header h2 {
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
             color: #333;
         }
-        
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        
-        .form-group small {
+
+        .modal-body label {
             display: block;
-            margin-top: 6px;
-            color: #999;
-            font-size: 12px;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
         }
-        
-        .hidden-input {
+
+        .modal-body input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .modal-body input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .modal-body .hint {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-modal-save {
+            background: #28a745;
+        }
+
+        .btn-modal-save:hover {
+            background: #218838;
+        }
+
+        .btn-modal-cancel {
+            background: #6c757d;
+        }
+
+        .btn-modal-cancel:hover {
+            background: #5a6268;
+        }
+
+        .sync-status {
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
             display: none;
+        }
+
+        .sync-status.success {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .sync-status.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .sync-status.loading {
+            display: block;
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        /* ========== GitHub 設定彈窗樣式結束 ========== */
+
+        @media (max-width: 768px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .category-input-group {
+                flex-direction: column;
+            }
+
+            .category-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .category-title-area {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .category-actions {
+                width: 100%;
+            }
+
+            .btn-edit-category, .btn-delete-category {
+                flex: 1;
+            }
+
+            .item-card {
+                flex-wrap: wrap;
+            }
+
+            .item-checkbox {
+                order: 1;
+            }
+
+            .item-info {
+                order: 2;
+                flex: 1 1 calc(100% - 40px);
+            }
+
+            .item-image {
+                order: 3;
+                width: 100%;
+                text-align: center;
+            }
+
+            .item-image img {
+                width: 100%;
+                max-width: 200px;
+                height: auto;
+            }
+
+            .item-actions {
+                order: 4;
+                width: 100%;
+            }
+
+            .btn-edit, .btn-delete {
+                flex: 1;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 返回按鈕 -->
     <a href="index.html" class="back-btn">
         <span>←</span> 返回指南
     </a>
-    
+
+    <!-- GitHub 設定彈窗 -->
+    <div class="modal-overlay" id="githubModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ GitHub 同步設定</h2>
+                <button class="modal-close" onclick="closeGithubModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="syncStatus" class="sync-status"></div>
+                
+                <label for="githubToken">GitHub Token</label>
+                <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx">
+                <p class="hint">需要有 repo 權限的 Personal Access Token</p>
+                
+                <label for="githubRepo">Repository</label>
+                <input type="text" id="githubRepo" placeholder="username/repo-name">
+                <p class="hint">格式：使用者名稱/儲存庫名稱</p>
+                
+                <label for="githubPath">檔案路徑</label>
+                <input type="text" id="githubPath" placeholder="data/buylist-data.json" value="data/buylist-data.json">
+                <p class="hint">資料儲存在 GitHub 的路徑</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-modal-cancel" onclick="closeGithubModal()">取消</button>
+                <button class="btn btn-modal-save" onclick="saveGithubSettings()">儲存設定</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1>✈️ 旅行好物清單</h1>
-            <div class="sync-status" id="syncStatus">
-                🔄 檢查同步狀態...
-            </div>
         </div>
-        
+
         <div class="controls">
-            <button class="btn btn-secondary" onclick="showGitHubConfig()">
-                ⚙️ GitHub 設定
-            </button>
-            <label class="btn btn-secondary">
-                📥 導入資料
-                <input type="file" accept=".json" onchange="importData(event)" class="hidden-input">
-            </label>
-            <button class="btn btn-secondary" onclick="exportData()">
-                📤 導出資料
-            </button>
-            <button class="btn btn-danger" onclick="resetData()">
-                🔄 重置
-            </button>
-            <button class="btn btn-primary" onclick="showAddCategory()">
-                🏷️ 新增分類
-            </button>
+            <button class="btn btn-import" onclick="importData()">📥 導入資料</button>
+            <button class="btn btn-export" onclick="exportData()">📤 導出資料</button>
+            <button class="btn btn-reset" onclick="resetData()">🔄 重置</button>
+            <button class="btn btn-github-upload" onclick="uploadToGithub()">☁️ 上傳雲端</button>
+            <button class="btn btn-github-download" onclick="downloadFromGithub()">📥 下載雲端</button>
+            <button class="btn btn-github-settings" onclick="openGithubModal()">⚙️ 同步設定</button>
+            <input type="file" id="fileInput" class="file-input" accept=".json" onchange="handleFileImport(event)">
         </div>
-        
-        <div id="categoriesContainer">
-            <div class="card empty-state">
-                <div class="icon">📦</div>
-                <p>還沒有任何分類，開始新增吧！</p>
+
+        <div class="add-category-section">
+            <h2 style="margin-bottom: 15px; color: #333;">🏷️ 新增分類</h2>
+            <div class="category-input-group">
+                <input type="text" id="categoryName" class="category-input" placeholder="輸入分類名稱（例如：3Coins、DAISO）">
+                <button class="btn btn-add-category" onclick="addCategory()">新增分類</button>
             </div>
         </div>
-    </div>
-    
-    <!-- GitHub Config Modal -->
-    <div class="modal" id="githubModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">⚙️ GitHub 同步設定</h3>
-                <button class="close-btn" onclick="closeGitHubConfig()">&times;</button>
+
+        <div class="categories-list" id="categoriesList">
+            <div class="empty-state">
+                <p style="font-size: 1.2em;">📦 還沒有任何分類，開始新增吧！</p>
             </div>
-            <div class="form-group">
-                <label>GitHub Personal Access Token</label>
-                <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx">
-                <small>需要 repo 權限。前往 GitHub Settings > Developer settings > Personal access tokens 建立</small>
-            </div>
-            <div class="form-group">
-                <label>Repository 擁有者 (Username)</label>
-                <input type="text" id="githubOwner" placeholder="ritalwc">
-            </div>
-            <div class="form-group">
-                <label>Repository 名稱</label>
-                <input type="text" id="githubRepo" placeholder="your-repo-name">
-            </div>
-            <div class="form-group">
-                <label>資料檔案路徑</label>
-                <input type="text" id="githubPath" placeholder="data/shopping-list.json" value="data/shopping-list.json">
-            </div>
-            <button class="btn btn-primary" onclick="saveGitHubConfig()" style="width: 100%;">
-                💾 儲存設定
-            </button>
-            <button class="btn btn-secondary" onclick="testGitHubConnection()" style="width: 100%; margin-top: 10px;">
-                🔗 測試連線並同步
-            </button>
-        </div>
-    </div>
-    
-    <!-- Add Category Modal -->
-    <div class="modal" id="categoryModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">🏷️ 新增分類</h3>
-                <button class="close-btn" onclick="closeCategoryModal()">&times;</button>
-            </div>
-            <div class="form-group">
-                <label>分類名稱</label>
-                <input type="text" id="categoryName" placeholder="例如：藥妝、零食、衣物">
-            </div>
-            <button class="btn btn-primary" onclick="addCategory()" style="width: 100%;">
-                ➕ 新增
-            </button>
         </div>
     </div>
 
     <script>
-        // Data
-        let shoppingData = {
-            categories: []
-        };
+        let categories = [];
+        let editingCategoryIndex = -1;
+        let editingItemInfo = { categoryIndex: -1, itemIndex: -1 };
+        let expandedCategories = new Set();
+
+        // ========== GitHub 同步功能 ==========
         
-        // GitHub Config
-        let githubConfig = {
-            token: '',
-            owner: '',
-            repo: '',
-            path: 'data/shopping-list.json'
-        };
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', async () => {
-            loadGitHubConfig();
-            await initializeData();
-        });
-        
-        // Load GitHub config from localStorage
-        function loadGitHubConfig() {
-            const saved = localStorage.getItem('githubConfig');
-            if (saved) {
-                githubConfig = JSON.parse(saved);
-                document.getElementById('githubToken').value = githubConfig.token;
-                document.getElementById('githubOwner').value = githubConfig.owner;
-                document.getElementById('githubRepo').value = githubConfig.repo;
-                document.getElementById('githubPath').value = githubConfig.path;
+        // 開啟 GitHub 設定彈窗
+        function openGithubModal() {
+            const modal = document.getElementById('githubModal');
+            modal.classList.add('active');
+            
+            // 載入已儲存的設定
+            const settings = getGithubSettings();
+            document.getElementById('githubToken').value = settings.token || '';
+            document.getElementById('githubRepo').value = settings.repo || '';
+            document.getElementById('githubPath').value = settings.path || 'data/buylist-data.json';
+            
+            // 清除狀態訊息
+            updateSyncStatus('', '');
+        }
+
+        // 關閉 GitHub 設定彈窗
+        function closeGithubModal() {
+            document.getElementById('githubModal').classList.remove('active');
+        }
+
+        // 取得 GitHub 設定
+        function getGithubSettings() {
+            const saved = localStorage.getItem('buylistGithubSettings');
+            return saved ? JSON.parse(saved) : {};
+        }
+
+        // 儲存 GitHub 設定
+        function saveGithubSettings() {
+            const token = document.getElementById('githubToken').value.trim();
+            const repo = document.getElementById('githubRepo').value.trim();
+            const path = document.getElementById('githubPath').value.trim();
+
+            if (!token || !repo || !path) {
+                updateSyncStatus('請填寫所有欄位！', 'error');
+                return;
+            }
+
+            const settings = { token, repo, path };
+            localStorage.setItem('buylistGithubSettings', JSON.stringify(settings));
+            
+            updateSyncStatus('設定已儲存！', 'success');
+            setTimeout(() => {
+                closeGithubModal();
+            }, 1000);
+        }
+
+        // 更新同步狀態訊息
+        function updateSyncStatus(message, type) {
+            const statusEl = document.getElementById('syncStatus');
+            statusEl.textContent = message;
+            statusEl.className = 'sync-status';
+            if (type) {
+                statusEl.classList.add(type);
             }
         }
-        
-        // Initialize data - try GitHub first, then localStorage
-        async function initializeData() {
-            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
-                updateSyncStatus('syncing', '🔄 從 GitHub 載入中...');
-                try {
-                    const cloudData = await fetchFromGitHub();
-                    if (cloudData) {
-                        shoppingData = cloudData;
-                        localStorage.setItem('shoppingData', JSON.stringify(shoppingData));
-                        updateSyncStatus('synced', '✅ 已從 GitHub 同步');
-                        renderCategories();
-                        return;
-                    }
-                } catch (error) {
-                    console.error('GitHub fetch failed:', error);
-                    updateSyncStatus('error', '⚠️ GitHub 載入失敗，使用本地資料');
-                }
+
+        // 上傳資料到 GitHub
+        async function uploadToGithub() {
+            const settings = getGithubSettings();
+            
+            if (!settings.token || !settings.repo || !settings.path) {
+                alert('請先設定 GitHub 同步資訊！');
+                openGithubModal();
+                return;
             }
-            
-            // Fallback to localStorage
-            const localData = localStorage.getItem('shoppingData');
-            if (localData) {
-                shoppingData = JSON.parse(localData);
-                updateSyncStatus('synced', '💾 使用本地資料');
-            } else {
-                updateSyncStatus('synced', '📝 尚無資料');
-            }
-            renderCategories();
-        }
-        
-        // Fetch data from GitHub
-        async function fetchFromGitHub() {
-            const url = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`;
-            
-            const response = await fetch(url, {
-                headers: {
-                    'Authorization': `token ${githubConfig.token}`,
-                    'Accept': 'application/vnd.github.v3+json'
-                }
-            });
-            
-            if (response.status === 404) {
-                return null; // File doesn't exist yet
-            }
-            
-            if (!response.ok) {
-                throw new Error(`GitHub API error: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            const content = atob(data.content);
-            return JSON.parse(content);
-        }
-        
-        // Save data to GitHub
-        async function saveToGitHub() {
-            if (!githubConfig.token || !githubConfig.owner || !githubConfig.repo) {
-                return false;
-            }
-            
-            updateSyncStatus('syncing', '🔄 同步到 GitHub...');
-            
-            const url = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`;
-            
+
             try {
-                // First, try to get the current file to get its SHA
+                const data = {
+                    categories: categories,
+                    lastUpdated: new Date().toISOString()
+                };
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+                
+                // 先嘗試獲取現有檔案的 SHA
                 let sha = null;
                 try {
-                    const getResponse = await fetch(url, {
-                        headers: {
-                            'Authorization': `token ${githubConfig.token}`,
-                            'Accept': 'application/vnd.github.v3+json'
+                    const getResponse = await fetch(
+                        `https://api.github.com/repos/${settings.repo}/contents/${settings.path}`,
+                        {
+                            headers: {
+                                'Authorization': `token ${settings.token}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
                         }
-                    });
+                    );
                     if (getResponse.ok) {
-                        const existingFile = await getResponse.json();
-                        sha = existingFile.sha;
+                        const fileData = await getResponse.json();
+                        sha = fileData.sha;
                     }
                 } catch (e) {
-                    // File doesn't exist, that's okay
+                    // 檔案不存在，不需要 SHA
                 }
-                
-                // Prepare the content
-                const content = btoa(unescape(encodeURIComponent(JSON.stringify(shoppingData, null, 2))));
-                
+
                 const body = {
-                    message: `Update shopping list - ${new Date().toISOString()}`,
+                    message: `Update buylist data - ${new Date().toLocaleString('zh-TW')}`,
                     content: content
                 };
-                
                 if (sha) {
                     body.sha = sha;
                 }
-                
-                const response = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${githubConfig.token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(body)
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`GitHub API error: ${response.status}`);
+
+                const response = await fetch(
+                    `https://api.github.com/repos/${settings.repo}/contents/${settings.path}`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${settings.token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(body)
+                    }
+                );
+
+                if (response.ok) {
+                    alert('✅ 資料已成功上傳到 GitHub！');
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.message || '上傳失敗');
                 }
-                
-                updateSyncStatus('synced', '✅ 已同步到 GitHub');
-                return true;
-                
             } catch (error) {
-                console.error('GitHub save failed:', error);
-                updateSyncStatus('error', '⚠️ 同步失敗');
-                return false;
+                alert('❌ 上傳失敗：' + error.message);
             }
         }
-        
-        // Update sync status UI
-        function updateSyncStatus(status, message) {
-            const el = document.getElementById('syncStatus');
-            el.textContent = message;
-            el.className = 'sync-status ' + status;
-        }
-        
-        // Save data (local + GitHub)
-        async function saveData() {
-            localStorage.setItem('shoppingData', JSON.stringify(shoppingData));
-            await saveToGitHub();
-        }
-        
-        // Render categories
-        function renderCategories() {
-            const container = document.getElementById('categoriesContainer');
+
+        // 從 GitHub 下載資料
+        async function downloadFromGithub() {
+            const settings = getGithubSettings();
             
-            if (shoppingData.categories.length === 0) {
+            if (!settings.token || !settings.repo || !settings.path) {
+                alert('請先設定 GitHub 同步資訊！');
+                openGithubModal();
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${settings.repo}/contents/${settings.path}`,
+                    {
+                        headers: {
+                            'Authorization': `token ${settings.token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('雲端尚無資料，請先上傳！');
+                    }
+                    throw new Error('下載失敗');
+                }
+
+                const fileData = await response.json();
+                const content = decodeURIComponent(escape(atob(fileData.content)));
+                const data = JSON.parse(content);
+
+                if (confirm('確定要用雲端資料覆蓋本地資料嗎？')) {
+                    categories = data.categories || [];
+                    expandedCategories.clear();
+                    saveData();
+                    renderCategories();
+                    alert('✅ 資料已從 GitHub 下載！');
+                }
+            } catch (error) {
+                alert('❌ 下載失敗：' + error.message);
+            }
+        }
+
+        // ========== GitHub 同步功能結束 ==========
+
+        // 載入資料
+        function loadData() {
+            const saved = localStorage.getItem('travelCategories');
+            if (saved) {
+                categories = JSON.parse(saved);
+            }
+            renderCategories();
+        }
+
+        // 儲存資料
+        function saveData() {
+            localStorage.setItem('travelCategories', JSON.stringify(categories));
+        }
+
+        // 切換分類展開/收合
+        function toggleCategory(index, event) {
+            // 如果點擊的是按鈕，不切換展開狀態
+            if (event.target.tagName === 'BUTTON') {
+                event.stopPropagation();
+                return;
+            }
+
+            const content = document.getElementById(`categoryContent_${index}`);
+            const icon = document.getElementById(`toggleIcon_${index}`);
+            
+            if (expandedCategories.has(index)) {
+                expandedCategories.delete(index);
+                content.classList.remove('expanded');
+                icon.classList.remove('expanded');
+            } else {
+                expandedCategories.add(index);
+                content.classList.add('expanded');
+                icon.classList.add('expanded');
+            }
+        }
+
+        // 新增或更新分類
+        function addCategory() {
+            const name = document.getElementById('categoryName').value.trim();
+
+            if (!name) {
+                alert('請輸入分類名稱！');
+                return;
+            }
+
+            if (editingCategoryIndex >= 0) {
+                categories[editingCategoryIndex].name = name;
+                editingCategoryIndex = -1;
+                document.querySelector('.btn-add-category').textContent = '新增分類';
+            } else {
+                categories.push({
+                    name: name,
+                    items: []
+                });
+            }
+
+            document.getElementById('categoryName').value = '';
+            saveData();
+            renderCategories();
+        }
+
+        // 編輯分類
+        function editCategory(index, event) {
+            event.stopPropagation();
+            const category = categories[index];
+            document.getElementById('categoryName').value = category.name;
+            editingCategoryIndex = index;
+            document.querySelector('.btn-add-category').textContent = '更新分類';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 刪除分類
+        function deleteCategory(index, event) {
+            event.stopPropagation();
+            if (confirm('確定要刪除此分類及其所有項目嗎？')) {
+                categories.splice(index, 1);
+                expandedCategories.delete(index);
+                saveData();
+                renderCategories();
+            }
+        }
+
+        // 切換項目勾選狀態
+        function toggleItemCheck(categoryIndex, itemIndex) {
+            categories[categoryIndex].items[itemIndex].checked = 
+                !categories[categoryIndex].items[itemIndex].checked;
+            saveData();
+            renderCategories();
+        }
+
+        // 新增或更新項目
+        function addItem(categoryIndex) {
+            const nameId = `itemName_${categoryIndex}`;
+            const linkId = `itemLink_${categoryIndex}`;
+            const imageId = `itemImage_${categoryIndex}`;
+
+            const name = document.getElementById(nameId).value.trim();
+            const link = document.getElementById(linkId).value.trim();
+            const image = document.getElementById(imageId).value.trim();
+
+            if (!name) {
+                alert('請輸入物品名稱！');
+                return;
+            }
+
+            const item = {
+                name: name,
+                link: link,
+                image: image,
+                checked: false
+            };
+
+            if (editingItemInfo.categoryIndex === categoryIndex && editingItemInfo.itemIndex >= 0) {
+                const oldChecked = categories[categoryIndex].items[editingItemInfo.itemIndex].checked;
+                categories[categoryIndex].items[editingItemInfo.itemIndex] = item;
+                categories[categoryIndex].items[editingItemInfo.itemIndex].checked = oldChecked;
+                editingItemInfo = { categoryIndex: -1, itemIndex: -1 };
+                document.querySelector(`#btnAddItem_${categoryIndex}`).textContent = '新增項目';
+            } else {
+                categories[categoryIndex].items.push(item);
+            }
+
+            document.getElementById(nameId).value = '';
+            document.getElementById(linkId).value = '';
+            document.getElementById(imageId).value = '';
+
+            saveData();
+            renderCategories();
+        }
+
+        // 編輯項目
+        function editItem(categoryIndex, itemIndex) {
+            const item = categories[categoryIndex].items[itemIndex];
+            const nameId = `itemName_${categoryIndex}`;
+            const linkId = `itemLink_${categoryIndex}`;
+            const imageId = `itemImage_${categoryIndex}`;
+
+            document.getElementById(nameId).value = item.name;
+            document.getElementById(linkId).value = item.link;
+            document.getElementById(imageId).value = item.image;
+            
+            editingItemInfo = { categoryIndex: categoryIndex, itemIndex: itemIndex };
+            document.querySelector(`#btnAddItem_${categoryIndex}`).textContent = '更新項目';
+            
+            // 確保分類展開
+            if (!expandedCategories.has(categoryIndex)) {
+                toggleCategory(categoryIndex, { target: {} });
+            }
+            
+            // 滾動到該分類
+            setTimeout(() => {
+                document.querySelector(`#category_${categoryIndex}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        // 刪除項目
+        function deleteItem(categoryIndex, itemIndex) {
+            if (confirm('確定要刪除此項目嗎？')) {
+                categories[categoryIndex].items.splice(itemIndex, 1);
+                saveData();
+                renderCategories();
+            }
+        }
+
+        // 顯示所有分類和項目
+        function renderCategories() {
+            const container = document.getElementById('categoriesList');
+            
+            if (categories.length === 0) {
                 container.innerHTML = `
-                    <div class="card empty-state">
-                        <div class="icon">📦</div>
-                        <p>還沒有任何分類，開始新增吧！</p>
+                    <div class="empty-state">
+                        <p style="font-size: 1.2em;">📦 還沒有任何分類，開始新增吧！</p>
                     </div>
                 `;
                 return;
             }
-            
-            container.innerHTML = shoppingData.categories.map((category, catIndex) => `
-                <div class="card">
-                    <div class="category-header">
-                        <span class="category-title">${category.name}</span>
-                        <button class="delete-btn" onclick="deleteCategory(${catIndex})">🗑️</button>
+
+            container.innerHTML = categories.map((category, catIndex) => `
+                <div class="category-section" id="category_${catIndex}">
+                    <div class="category-header" onclick="toggleCategory(${catIndex}, event)">
+                        <div class="category-title-area">
+                            <span class="toggle-icon ${expandedCategories.has(catIndex) ? 'expanded' : ''}" id="toggleIcon_${catIndex}">▶</span>
+                            <div class="category-title">${escapeHtml(category.name)}</div>
+                        </div>
+                        <div class="category-actions">
+                            <button class="btn btn-edit-category" onclick="editCategory(${catIndex}, event)">✏️ 編輯</button>
+                            <button class="btn btn-delete-category" onclick="deleteCategory(${catIndex}, event)">🗑️ 刪除</button>
+                        </div>
                     </div>
-                    <ul class="item-list">
-                        ${category.items.map((item, itemIndex) => `
-                            <li class="item ${item.checked ? 'checked' : ''}">
-                                <input type="checkbox" ${item.checked ? 'checked' : ''} 
-                                    onchange="toggleItem(${catIndex}, ${itemIndex})">
-                                <span class="item-name">${item.name}</span>
-                                ${item.price ? `<span class="item-price">¥${item.price}</span>` : ''}
-                                <button class="delete-btn" onclick="deleteItem(${catIndex}, ${itemIndex})">×</button>
-                            </li>
-                        `).join('')}
-                    </ul>
-                    <div class="add-item-form">
-                        <input type="text" placeholder="品項名稱" id="itemName-${catIndex}">
-                        <input type="number" placeholder="價格" id="itemPrice-${catIndex}" style="max-width: 100px;">
-                        <button class="btn btn-primary" onclick="addItem(${catIndex})">+</button>
+                    
+                    <div class="category-content ${expandedCategories.has(catIndex) ? 'expanded' : ''}" id="categoryContent_${catIndex}">
+                        <div class="add-item-section">
+                            <div class="input-group">
+                                <input type="text" id="itemName_${catIndex}" class="input-field" placeholder="物品名稱" onkeypress="if(event.key==='Enter') addItem(${catIndex})">
+                                <input type="text" id="itemLink_${catIndex}" class="input-field" placeholder="參考連結（選填）" onkeypress="if(event.key==='Enter') addItem(${catIndex})">
+                                <input type="text" id="itemImage_${catIndex}" class="input-field" placeholder="圖片連結（選填）" onkeypress="if(event.key==='Enter') addItem(${catIndex})">
+                                <button class="btn btn-add-item" id="btnAddItem_${catIndex}" onclick="addItem(${catIndex})">新增項目</button>
+                            </div>
+                        </div>
+                        
+                        <div class="items-list">
+                            ${category.items.length === 0 ? `
+                                <div class="empty-category-state">
+                                    <p>此分類還沒有項目</p>
+                                </div>
+                            ` : category.items.map((item, itemIndex) => `
+                                <div class="item-card">
+                                    <input type="checkbox" class="item-checkbox" 
+                                           ${item.checked ? 'checked' : ''} 
+                                           onchange="toggleItemCheck(${catIndex}, ${itemIndex})">
+                                    
+                                    <div class="item-info">
+                                        <div class="item-name ${item.checked ? 'checked' : ''}">${escapeHtml(item.name)}</div>
+                                        ${item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" class="item-link">🔗 ${escapeHtml(item.link)}</a>` : ''}
+                                    </div>
+                                    
+                                    ${item.image ? `
+                                        <div class="item-image">
+                                            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" onerror="this.parentElement.style.display='none'">
+                                        </div>
+                                    ` : ''}
+                                    
+                                    <div class="item-actions">
+                                        <button class="btn btn-edit" onclick="editItem(${catIndex}, ${itemIndex})">✏️</button>
+                                        <button class="btn btn-delete" onclick="deleteItem(${catIndex}, ${itemIndex})">🗑️</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
-        
-        // Category operations
-        function showAddCategory() {
-            document.getElementById('categoryModal').classList.add('active');
-            document.getElementById('categoryName').focus();
-        }
-        
-        function closeCategoryModal() {
-            document.getElementById('categoryModal').classList.remove('active');
-            document.getElementById('categoryName').value = '';
-        }
-        
-        async function addCategory() {
-            const name = document.getElementById('categoryName').value.trim();
-            if (!name) return;
+
+        // 導出資料
+        function exportData() {
+            const data = {
+                categories: categories,
+                exportDate: new Date().toISOString()
+            };
             
-            shoppingData.categories.push({
-                name: name,
-                items: []
-            });
-            
-            await saveData();
-            renderCategories();
-            closeCategoryModal();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `旅行好物清單_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
         }
-        
-        async function deleteCategory(index) {
-            if (confirm('確定要刪除這個分類嗎？')) {
-                shoppingData.categories.splice(index, 1);
-                await saveData();
-                renderCategories();
-            }
+
+        // 導入資料
+        function importData() {
+            document.getElementById('fileInput').click();
         }
-        
-        // Item operations
-        async function addItem(catIndex) {
-            const nameInput = document.getElementById(`itemName-${catIndex}`);
-            const priceInput = document.getElementById(`itemPrice-${catIndex}`);
-            
-            const name = nameInput.value.trim();
-            if (!name) return;
-            
-            shoppingData.categories[catIndex].items.push({
-                name: name,
-                price: priceInput.value ? parseInt(priceInput.value) : null,
-                checked: false
-            });
-            
-            await saveData();
-            renderCategories();
-        }
-        
-        async function toggleItem(catIndex, itemIndex) {
-            shoppingData.categories[catIndex].items[itemIndex].checked = 
-                !shoppingData.categories[catIndex].items[itemIndex].checked;
-            await saveData();
-            renderCategories();
-        }
-        
-        async function deleteItem(catIndex, itemIndex) {
-            shoppingData.categories[catIndex].items.splice(itemIndex, 1);
-            await saveData();
-            renderCategories();
-        }
-        
-        // Import/Export
-        async function importData(event) {
+
+        function handleFileImport(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
+
             const reader = new FileReader();
-            reader.onload = async (e) => {
+            reader.onload = function(e) {
                 try {
-                    const imported = JSON.parse(e.target.result);
-                    shoppingData = imported;
-                    await saveData(); // This will save to both localStorage and GitHub
-                    renderCategories();
-                    alert('✅ 導入成功並已同步到 GitHub！');
+                    const data = JSON.parse(e.target.result);
+                    if (confirm('導入資料將覆蓋現有資料，確定要繼續嗎？')) {
+                        categories = data.categories || [];
+                        expandedCategories.clear();
+                        saveData();
+                        renderCategories();
+                        alert('資料導入成功！');
+                    }
                 } catch (error) {
-                    alert('❌ 導入失敗：檔案格式錯誤');
+                    alert('檔案格式錯誤，請選擇正確的 JSON 檔案！');
                 }
             };
             reader.readAsText(file);
             event.target.value = '';
         }
-        
-        function exportData() {
-            const blob = new Blob([JSON.stringify(shoppingData, null, 2)], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `shopping-list-${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-        
-        async function resetData() {
-            if (confirm('確定要清除所有資料嗎？此操作無法復原！')) {
-                shoppingData = { categories: [] };
-                await saveData();
+
+        // 重置資料
+        function resetData() {
+            if (confirm('確定要重置所有資料嗎？此操作無法復原！')) {
+                categories = [];
+                expandedCategories.clear();
+                saveData();
                 renderCategories();
+                alert('資料已重置！');
             }
         }
-        
-        // GitHub Config
-        function showGitHubConfig() {
-            document.getElementById('githubModal').classList.add('active');
+
+        // HTML 轉義
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
-        
-        function closeGitHubConfig() {
-            document.getElementById('githubModal').classList.remove('active');
-        }
-        
-        function saveGitHubConfig() {
-            githubConfig = {
-                token: document.getElementById('githubToken').value.trim(),
-                owner: document.getElementById('githubOwner').value.trim(),
-                repo: document.getElementById('githubRepo').value.trim(),
-                path: document.getElementById('githubPath').value.trim() || 'data/shopping-list.json'
-            };
-            
-            localStorage.setItem('githubConfig', JSON.stringify(githubConfig));
-            alert('✅ GitHub 設定已儲存！');
-            closeGitHubConfig();
-        }
-        
-        async function testGitHubConnection() {
-            saveGitHubConfig();
-            
-            if (!githubConfig.token || !githubConfig.owner || !githubConfig.repo) {
-                alert('❌ 請填寫完整的 GitHub 設定');
-                return;
-            }
-            
-            try {
-                updateSyncStatus('syncing', '🔄 測試連線中...');
-                
-                // Try to fetch
-                const cloudData = await fetchFromGitHub();
-                
-                if (cloudData) {
-                    if (confirm('發現雲端資料！是否要載入？\n（選擇「取消」將使用本地資料並覆蓋雲端）')) {
-                        shoppingData = cloudData;
-                        localStorage.setItem('shoppingData', JSON.stringify(shoppingData));
-                        renderCategories();
-                    } else {
-                        await saveToGitHub();
-                    }
-                } else {
-                    // No cloud data, upload local data
-                    await saveToGitHub();
-                }
-                
-                updateSyncStatus('synced', '✅ 連線成功');
-                alert('✅ GitHub 連線成功！');
-                closeGitHubConfig();
-                
-            } catch (error) {
-                console.error('Connection test failed:', error);
-                updateSyncStatus('error', '⚠️ 連線失敗');
-                alert('❌ 連線失敗：' + error.message);
-            }
-        }
-        
-        // Close modals on background click
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
+
+        // 按 Enter 新增分類
+        document.getElementById('categoryName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addCategory();
         });
+
+        // 點擊彈窗外部關閉
+        document.getElementById('githubModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeGithubModal();
+            }
+        });
+
+        // 初始化
+        loadData();
     </script>
 </body>
 </html>
