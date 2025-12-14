@@ -238,10 +238,37 @@
             .event { padding-left: 30px; }
             .event::after { left: -6px; }
         }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 12px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            background: #fff;
+        }
     </style>
 </head>
 <body>
-
+<!-- 在原有的 header 前面加入這個返回按鈕 -->
+<a href="index.html" class="back-btn">
+    <span>←</span> 返回指南
+</a>
 <header>
     <h1>🇯🇵 2026 日本 CHUR 到爆之行</h1>
     <p>2月7日 - 2月18日 | 東京・川越・草津・輕井澤・秋田・青森</p>
