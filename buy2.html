@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅行好物清單</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 12px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 60px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .sync-status {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .sync-status.synced {
+            background: rgba(39, 174, 96, 0.3);
+        }
+        
+        .sync-status.syncing {
+            background: rgba(241, 196, 15, 0.3);
+        }
+        
+        .sync-status.error {
+            background: rgba(231, 76, 60, 0.3);
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #00b894;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .category-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .item-list {
+            list-style: none;
+        }
+        
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            transition: all 0.2s ease;
+        }
+        
+        .item:hover {
+            background: #e9ecef;
+        }
+        
+        .item.checked {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+        
+        .item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+        
+        .item-name {
+            flex: 1;
+            font-size: 16px;
+        }
+        
+        .item-price {
+            color: #e74c3c;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px 8px;
+        }
+        
+        .delete-btn:hover {
+            color: #e74c3c;
+        }
+        
+        .add-item-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        
+        .add-item-form input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .add-item-form input:focus {
+            outline: none;
+            border-color: #0984e3;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .empty-state .icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        
+        /* GitHub Config Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 6px;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .hidden-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">
+        <span>←</span> 返回指南
+    </a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>✈️ 旅行好物清單</h1>
+            <div class="sync-status" id="syncStatus">
+                🔄 檢查同步狀態...
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn btn-secondary" onclick="showGitHubConfig()">
+                ⚙️ GitHub 設定
+            </button>
+            <label class="btn btn-secondary">
+                📥 導入資料
+                <input type="file" accept=".json" onchange="importData(event)" class="hidden-input">
+            </label>
+            <button class="btn btn-secondary" onclick="exportData()">
+                📤 導出資料
+            </button>
+            <button class="btn btn-danger" onclick="resetData()">
+                🔄 重置
+            </button>
+            <button class="btn btn-primary" onclick="showAddCategory()">
+                🏷️ 新增分類
+            </button>
+        </div>
+        
+        <div id="categoriesContainer">
+            <div class="card empty-state">
+                <div class="icon">📦</div>
+                <p>還沒有任何分類，開始新增吧！</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- GitHub Config Modal -->
+    <div class="modal" id="githubModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">⚙️ GitHub 同步設定</h3>
+                <button class="close-btn" onclick="closeGitHubConfig()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>GitHub Personal Access Token</label>
+                <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx">
+                <small>需要 repo 權限。前往 GitHub Settings > Developer settings > Personal access tokens 建立</small>
+            </div>
+            <div class="form-group">
+                <label>Repository 擁有者 (Username)</label>
+                <input type="text" id="githubOwner" placeholder="ritalwc">
+            </div>
+            <div class="form-group">
+                <label>Repository 名稱</label>
+                <input type="text" id="githubRepo" placeholder="your-repo-name">
+            </div>
+            <div class="form-group">
+                <label>資料檔案路徑</label>
+                <input type="text" id="githubPath" placeholder="data/shopping-list.json" value="data/shopping-list.json">
+            </div>
+            <button class="btn btn-primary" onclick="saveGitHubConfig()" style="width: 100%;">
+                💾 儲存設定
+            </button>
+            <button class="btn btn-secondary" onclick="testGitHubConnection()" style="width: 100%; margin-top: 10px;">
+                🔗 測試連線並同步
+            </button>
+        </div>
+    </div>
+    
+    <!-- Add Category Modal -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🏷️ 新增分類</h3>
+                <button class="close-btn" onclick="closeCategoryModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>分類名稱</label>
+                <input type="text" id="categoryName" placeholder="例如：藥妝、零食、衣物">
+            </div>
+            <button class="btn btn-primary" onclick="addCategory()" style="width: 100%;">
+                ➕ 新增
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        let shoppingData = {
+            categories: []
+        };
+        
+        // GitHub Config
+        let githubConfig = {
+            token: '',
+            owner: '',
+            repo: '',
+            path: 'data/shopping-list.json'
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            loadGitHubConfig();
+            await initializeData();
+        });
+        
+        // Load GitHub config from localStorage
+        function loadGitHubConfig() {
+            const saved = localStorage.getItem('githubConfig');
+            if (saved) {
+                githubConfig = JSON.parse(saved);
+                document.getElementById('githubToken').value = githubConfig.token;
+                document.getElementById('githubOwner').value = githubConfig.owner;
+                document.getElementById('githubRepo').value = githubConfig.repo;
+                document.getElementById('githubPath').value = githubConfig.path;
+            }
+        }
+        
+        // Initialize data - try GitHub first, then localStorage
+        async function initializeData() {
+            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
+                updateSyncStatus('syncing', '🔄 從 GitHub 載入中...');
+                try {
+                    const cloudData = await fetchFromGitHub();
+                    if (cloudData) {
+                        shoppingData = cloudData;
+                        localStorage.setItem('shoppingData', JSON.stringify(shoppingData));
+                        updateSyncStatus('synced', '✅ 已從 GitHub 同步');
+                        renderCategories();
+                        return;
+                    }
+                } catch (error) {
+                    console.error('GitHub fetch failed:', error);
+                    updateSyncStatus('error', '⚠️ GitHub 載入失敗，使用本地資料');
+                }
+            }
+            
+            // Fallback to localStorage
+            const localData = localStorage.getItem('shoppingData');
+            if (localData) {
+                shoppingData = JSON.parse(localData);
+                updateSyncStatus('synced', '💾 使用本地資料');
+            } else {
+                updateSyncStatus('synced', '📝 尚無資料');
+            }
+            renderCategories();
+        }
+        
+        // Fetch data from GitHub
+        async function fetchFromGitHub() {
+            const url = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`;
+            
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `token ${githubConfig.token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+            
+            if (response.status === 404) {
+                return null; // File doesn't exist yet
+            }
+            
+            if (!response.ok) {
+                throw new Error(`GitHub API error: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            const content = atob(data.content);
+            return JSON.parse(content);
+        }
+        
+        // Save data to GitHub
+        async function saveToGitHub() {
+            if (!githubConfig.token || !githubConfig.owner || !githubConfig.repo) {
+                return false;
+            }
+            
+            updateSyncStatus('syncing', '🔄 同步到 GitHub...');
+            
+            const url = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`;
+            
+            try {
+                // First, try to get the current file to get its SHA
+                let sha = null;
+                try {
+                    const getResponse = await fetch(url, {
+                        headers: {
+                            'Authorization': `token ${githubConfig.token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    if (getResponse.ok) {
+                        const existingFile = await getResponse.json();
+                        sha = existingFile.sha;
+                    }
+                } catch (e) {
+                    // File doesn't exist, that's okay
+                }
+                
+                // Prepare the content
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(shoppingData, null, 2))));
+                
+                const body = {
+                    message: `Update shopping list - ${new Date().toISOString()}`,
+                    content: content
+                };
+                
+                if (sha) {
+                    body.sha = sha;
+                }
+                
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${githubConfig.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+                
+                updateSyncStatus('synced', '✅ 已同步到 GitHub');
+                return true;
+                
+            } catch (error) {
+                console.error('GitHub save failed:', error);
+                updateSyncStatus('error', '⚠️ 同步失敗');
+                return false;
+            }
+        }
+        
+        // Update sync status UI
+        function updateSyncStatus(status, message) {
+            const el = document.getElementById('syncStatus');
+            el.textContent = message;
+            el.className = 'sync-status ' + status;
+        }
+        
+        // Save data (local + GitHub)
+        async function saveData() {
+            localStorage.setItem('shoppingData', JSON.stringify(shoppingData));
+            await saveToGitHub();
+        }
+        
+        // Render categories
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            
+            if (shoppingData.categories.length === 0) {
+                container.innerHTML = `
+                    <div class="card empty-state">
+                        <div class="icon">📦</div>
+                        <p>還沒有任何分類，開始新增吧！</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = shoppingData.categories.map((category, catIndex) => `
+                <div class="card">
+                    <div class="category-header">
+                        <span class="category-title">${category.name}</span>
+                        <button class="delete-btn" onclick="deleteCategory(${catIndex})">🗑️</button>
+                    </div>
+                    <ul class="item-list">
+                        ${category.items.map((item, itemIndex) => `
+                            <li class="item ${item.checked ? 'checked' : ''}">
+                                <input type="checkbox" ${item.checked ? 'checked' : ''} 
+                                    onchange="toggleItem(${catIndex}, ${itemIndex})">
+                                <span class="item-name">${item.name}</span>
+                                ${item.price ? `<span class="item-price">¥${item.price}</span>` : ''}
+                                <button class="delete-btn" onclick="deleteItem(${catIndex}, ${itemIndex})">×</button>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    <div class="add-item-form">
+                        <input type="text" placeholder="品項名稱" id="itemName-${catIndex}">
+                        <input type="number" placeholder="價格" id="itemPrice-${catIndex}" style="max-width: 100px;">
+                        <button class="btn btn-primary" onclick="addItem(${catIndex})">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Category operations
+        function showAddCategory() {
+            document.getElementById('categoryModal').classList.add('active');
+            document.getElementById('categoryName').focus();
+        }
+        
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+            document.getElementById('categoryName').value = '';
+        }
+        
+        async function addCategory() {
+            const name = document.getElementById('categoryName').value.trim();
+            if (!name) return;
+            
+            shoppingData.categories.push({
+                name: name,
+                items: []
+            });
+            
+            await saveData();
+            renderCategories();
+            closeCategoryModal();
+        }
+        
+        async function deleteCategory(index) {
+            if (confirm('確定要刪除這個分類嗎？')) {
+                shoppingData.categories.splice(index, 1);
+                await saveData();
+                renderCategories();
+            }
+        }
+        
+        // Item operations
+        async function addItem(catIndex) {
+            const nameInput = document.getElementById(`itemName-${catIndex}`);
+            const priceInput = document.getElementById(`itemPrice-${catIndex}`);
+            
+            const name = nameInput.value.trim();
+            if (!name) return;
+            
+            shoppingData.categories[catIndex].items.push({
+                name: name,
+                price: priceInput.value ? parseInt(priceInput.value) : null,
+                checked: false
+            });
+            
+            await saveData();
+            renderCategories();
+        }
+        
+        async function toggleItem(catIndex, itemIndex) {
+            shoppingData.categories[catIndex].items[itemIndex].checked = 
+                !shoppingData.categories[catIndex].items[itemIndex].checked;
+            await saveData();
+            renderCategories();
+        }
+        
+        async function deleteItem(catIndex, itemIndex) {
+            shoppingData.categories[catIndex].items.splice(itemIndex, 1);
+            await saveData();
+            renderCategories();
+        }
+        
+        // Import/Export
+        async function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    shoppingData = imported;
+                    await saveData(); // This will save to both localStorage and GitHub
+                    renderCategories();
+                    alert('✅ 導入成功並已同步到 GitHub！');
+                } catch (error) {
+                    alert('❌ 導入失敗：檔案格式錯誤');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+        
+        function exportData() {
+            const blob = new Blob([JSON.stringify(shoppingData, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `shopping-list-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        async function resetData() {
+            if (confirm('確定要清除所有資料嗎？此操作無法復原！')) {
+                shoppingData = { categories: [] };
+                await saveData();
+                renderCategories();
+            }
+        }
+        
+        // GitHub Config
+        function showGitHubConfig() {
+            document.getElementById('githubModal').classList.add('active');
+        }
+        
+        function closeGitHubConfig() {
+            document.getElementById('githubModal').classList.remove('active');
+        }
+        
+        function saveGitHubConfig() {
+            githubConfig = {
+                token: document.getElementById('githubToken').value.trim(),
+                owner: document.getElementById('githubOwner').value.trim(),
+                repo: document.getElementById('githubRepo').value.trim(),
+                path: document.getElementById('githubPath').value.trim() || 'data/shopping-list.json'
+            };
+            
+            localStorage.setItem('githubConfig', JSON.stringify(githubConfig));
+            alert('✅ GitHub 設定已儲存！');
+            closeGitHubConfig();
+        }
+        
+        async function testGitHubConnection() {
+            saveGitHubConfig();
+            
+            if (!githubConfig.token || !githubConfig.owner || !githubConfig.repo) {
+                alert('❌ 請填寫完整的 GitHub 設定');
+                return;
+            }
+            
+            try {
+                updateSyncStatus('syncing', '🔄 測試連線中...');
+                
+                // Try to fetch
+                const cloudData = await fetchFromGitHub();
+                
+                if (cloudData) {
+                    if (confirm('發現雲端資料！是否要載入？\n（選擇「取消」將使用本地資料並覆蓋雲端）')) {
+                        shoppingData = cloudData;
+                        localStorage.setItem('shoppingData', JSON.stringify(shoppingData));
+                        renderCategories();
+                    } else {
+                        await saveToGitHub();
+                    }
+                } else {
+                    // No cloud data, upload local data
+                    await saveToGitHub();
+                }
+                
+                updateSyncStatus('synced', '✅ 連線成功');
+                alert('✅ GitHub 連線成功！');
+                closeGitHubConfig();
+                
+            } catch (error) {
+                console.error('Connection test failed:', error);
+                updateSyncStatus('error', '⚠️ 連線失敗');
+                alert('❌ 連線失敗：' + error.message);
+            }
+        }
+        
+        // Close modals on background click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
