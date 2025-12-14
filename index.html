@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 日本旅行指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .logo {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        
+        h1 {
+            color: #1a1a2e;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px 32px;
+            border: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn.itinerary {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+            color: white;
+        }
+        
+        .nav-btn.itinerary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(238, 90, 90, 0.4);
+        }
+        
+        .nav-btn.shopping {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+        }
+        
+        .nav-btn.shopping:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(68, 160, 141, 0.4);
+        }
+        
+        .nav-btn .icon {
+            font-size: 24px;
+        }
+        
+        .dates {
+            margin-top: 32px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🇯🇵</div>
+        <h1>2026 日本 CHUR 到爆之行</h1>
+        <p class="subtitle">東京・川越・草津・輕井澤・秋田・青森</p>
+        
+        <div class="nav-buttons">
+            <a href="Jap 2026.html" class="nav-btn itinerary">
+                <span class="icon">📅</span>
+                <span>行程表</span>
+            </a>
+            <a href="buy2.html" class="nav-btn shopping">
+                <span class="icon">🛒</span>
+                <span>購物清單</span>
+            </a>
+        </div>
+        
+        <div class="dates">
+            📆 2月7日 - 2月18日 (12天)
+        </div>
+    </div>
+</body>
+</html>
