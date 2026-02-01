@@ -161,7 +161,24 @@
           "checked": false
         }
       ]
+    },
+    {
+      "name": "候備商場",
+      "items": [
+        {
+          "name": "原宿 laforet （從JR山手線原宿車站表參道口步行5分鐘 從東京地鐵千代田線、副都心線明治神宮前 〈原宿〉站 5號出口步行1分鐘）",
+          "link": "https://www.laforet.ne.jp",
+          "image": "",
+          "checked": false
+        },
+        {
+          "name": "新宿LUMINE EST 從 JR山手線・中央線「新宿」站中央東口、或從東口步行約1分鐘",
+          "link": "https://www.lumine.ne.jp/est/",
+          "image": "",
+          "checked": false
+        }
+      ]
     }
   ],
-  "lastUpdated": "2026-02-01T06:40:47.647Z"
+  "lastUpdated": "2026-02-01T06:48:47.435Z"
 }
