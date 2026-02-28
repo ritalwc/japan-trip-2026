@@ -123,7 +123,7 @@
         {
           "name": "即食河粉",
           "link": "",
-          "image": "",
+          "image": "https://www.vietcom.hk/image/cache/cache/1-1000/144/main/1d8f-HG-BANH-DA-CUA-0-3-800x800.jpg",
           "checked": false
         },
         {
@@ -147,5 +147,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-02-28T07:40:06.326Z"
+  "lastUpdated": "2026-02-28T07:52:49.300Z"
 }
