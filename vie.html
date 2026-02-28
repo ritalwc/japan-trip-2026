@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>河內 4 日行程 — Hanoi Trip</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --c-bg: #faf8f5;
+    --c-card: #ffffff;
+    --c-accent1: #2d6a4f;
+    --c-accent2: #d4a373;
+    --c-accent3: #e76f51;
+    --c-accent4: #264653;
+    --c-text: #2b2b2b;
+    --c-muted: #8a8a8a;
+    --c-border: #e8e4df;
+    --c-check: #2d6a4f;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,.1);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Noto Sans TC',sans-serif;background:var(--c-bg);color:var(--c-text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+
+  /* HERO */
+  .hero{position:relative;background:linear-gradient(135deg,#264653 0%,#2a9d8f 50%,#e9c46a 100%);padding:60px 24px 48px;text-align:center;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 70%,rgba(255,255,255,.08) 0%,transparent 50%),radial-gradient(circle at 70% 30%,rgba(255,255,255,.06) 0%,transparent 50%);animation:heroShimmer 15s ease-in-out infinite alternate;}
+  @keyframes heroShimmer{0%{transform:translate(0,0) rotate(0deg);}100%{transform:translate(-5%,3%) rotate(2deg);}}
+  .hero-content{position:relative;z-index:1;}
+  .hero-flag{font-size:40px;margin-bottom:8px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,7vw,56px);color:#fff;letter-spacing:2px;margin-bottom:4px;text-shadow:0 2px 12px rgba(0,0,0,.15);}
+  .hero-sub{color:rgba(255,255,255,.85);font-size:15px;font-weight:300;letter-spacing:1px;margin-bottom:24px;}
+  .hero-dates{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);padding:10px 24px;border-radius:40px;color:#fff;font-size:14px;font-weight:500;}
+
+  /* PROGRESS BAR */
+  .overall-progress{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--c-border);padding:12px 24px;display:flex;align-items:center;gap:14px;transition:box-shadow .3s;}
+  .overall-progress.scrolled{box-shadow:var(--shadow-md);}
+  .progress-label{font-size:13px;font-weight:700;color:var(--c-accent1);white-space:nowrap;}
+  .progress-bar-outer{flex:1;height:8px;background:#eee;border-radius:8px;overflow:hidden;}
+  .progress-bar-inner{height:100%;background:linear-gradient(90deg,#2d6a4f,#2a9d8f,#e9c46a);border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1);width:0%;}
+  .progress-count{font-size:13px;color:var(--c-muted);font-weight:500;white-space:nowrap;}
+
+  .container{max-width:720px;margin:0 auto;padding:32px 16px 80px;}
+
+  /* DAY CARD */
+  .day-card{margin-bottom:28px;border-radius:var(--radius);background:var(--c-card);box-shadow:var(--shadow-sm);overflow:hidden;border:1px solid var(--c-border);transition:box-shadow .3s;}
+  .day-card:hover{box-shadow:var(--shadow-md);}
+  .day-header{padding:20px 24px;cursor:pointer;display:flex;align-items:center;gap:16px;user-select:none;transition:background .2s;}
+  .day-header:hover{background:rgba(0,0,0,.015);}
+  .day-num{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;color:#fff;flex-shrink:0;}
+  .day-1 .day-num{background:linear-gradient(135deg,#2d6a4f,#40916c);}
+  .day-2 .day-num{background:linear-gradient(135deg,#264653,#2a9d8f);}
+  .day-3 .day-num{background:linear-gradient(135deg,#d4a373,#e9c46a);}
+  .day-4 .day-num{background:linear-gradient(135deg,#e76f51,#f4a261);}
+  .day-info{flex:1;min-width:0;}
+  .day-title{font-size:17px;font-weight:700;line-height:1.3;}
+  .day-subtitle{font-size:13px;color:var(--c-muted);font-weight:400;margin-top:2px;}
+
+  .day-progress-mini{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .day-progress-ring{width:36px;height:36px;transform:rotate(-90deg);}
+  .day-progress-ring-bg{stroke:#eee;}
+  .day-progress-ring-fill{transition:stroke-dashoffset .5s cubic-bezier(.4,0,.2,1);}
+  .day-1 .day-progress-ring-fill{stroke:#2d6a4f;}
+  .day-2 .day-progress-ring-fill{stroke:#2a9d8f;}
+  .day-3 .day-progress-ring-fill{stroke:#d4a373;}
+  .day-4 .day-progress-ring-fill{stroke:#e76f51;}
+  .chevron{width:20px;height:20px;color:var(--c-muted);transition:transform .3s;flex-shrink:0;}
+  .day-card.open .chevron{transform:rotate(180deg);}
+
+  .day-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);}
+  .day-card.open .day-body{max-height:4000px;}
+  .day-body-inner{padding:0 24px 24px;}
+
+  .section-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--c-muted);margin:20px 0 12px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--c-border);}
+
+  /* TIMELINE */
+  .timeline{position:relative;padding-left:0;}
+
+  .tl-item{display:flex;align-items:flex-start;gap:14px;padding:10px 12px;margin-bottom:4px;border-radius:var(--radius-sm);cursor:pointer;position:relative;transition:background .2s, opacity .3s;}
+  .tl-item:hover{background:rgba(0,0,0,.02);}
+  .tl-item.checked{opacity:.55;}
+  .tl-item.checked .tl-title{text-decoration:line-through;text-decoration-color:var(--c-muted);}
+
+  /* CHECKBOX */
+  .tl-checkbox{position:relative;width:22px;height:22px;flex-shrink:0;margin-top:2px;}
+  .tl-checkbox input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;z-index:2;margin:0;}
+  .tl-checkbox .cb-visual{width:22px;height:22px;border:2px solid #ccc;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all .25s;background:#fff;}
+  .tl-checkbox .cb-visual svg{width:14px;height:14px;opacity:0;transform:scale(0);transition:all .25s;}
+  .tl-checkbox input:checked + .cb-visual{border-color:var(--c-check);background:var(--c-check);}
+  .tl-checkbox input:checked + .cb-visual svg{opacity:1;transform:scale(1);}
+  .tl-checkbox input:hover + .cb-visual{border-color:#aaa;}
+  .tl-checkbox input:checked:hover + .cb-visual{border-color:#1b4332;background:#1b4332;}
+
+  @keyframes cb-pop{0%{transform:scale(1);}40%{transform:scale(1.2);}100%{transform:scale(1);}}
+  .cb-pop .cb-visual{animation:cb-pop .3s ease;}
+
+  .tl-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center;margin-top:1px;}
+  .tl-content{flex:1;min-width:0;padding-top:0;}
+  .tl-title{font-size:15px;font-weight:600;line-height:1.4;transition:all .3s;}
+  .tl-desc{font-size:13px;color:var(--c-muted);margin-top:2px;line-height:1.5;}
+
+  .tl-tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;margin-top:5px;letter-spacing:.5px;}
+  .tag-food{background:#fef3e2;color:#c77d1a;}
+  .tag-sight{background:#e8f5e9;color:#2e7d32;}
+  .tag-spa{background:#f3e5f5;color:#7b1fa2;}
+  .tag-coffee{background:#efebe9;color:#5d4037;}
+  .tag-shop{background:#e3f2fd;color:#1565c0;}
+  .tag-hotel{background:#fce4ec;color:#c62828;}
+  .tag-flight{background:#e8eaf6;color:#283593;}
+  .tag-bar{background:#fff3e0;color:#e65100;}
+
+  .note-box{background:#fdf6ee;border-left:3px solid var(--c-accent2);padding:12px 16px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-top:8px;margin-bottom:8px;font-size:13px;color:#7a6540;line-height:1.6;}
+
+  .footer{text-align:center;padding:40px 24px;font-size:12px;color:var(--c-muted);}
+
+  .reset-btn{position:fixed;bottom:24px;right:24px;background:var(--c-accent4);color:#fff;border:none;font-size:13px;cursor:pointer;box-shadow:var(--shadow-lg);z-index:99;transition:transform .2s,background .2s;display:flex;align-items:center;gap:6px;padding:12px 18px;border-radius:40px;font-family:'Noto Sans TC',sans-serif;font-weight:600;}
+  .reset-btn:hover{transform:scale(1.05);background:#1a3a47;}
+  .reset-btn:active{transform:scale(.95);}
+
+  @media(max-width:480px){
+    .hero{padding:48px 16px 36px;}
+    .day-header{padding:16px;gap:12px;}
+    .day-num{width:44px;height:44px;font-size:18px;border-radius:12px;}
+    .day-title{font-size:15px;}
+    .day-body-inner{padding:0 16px 20px;}
+    .tl-item{gap:10px;padding:8px 8px;}
+    .reset-btn{bottom:16px;right:16px;padding:10px 14px;font-size:12px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-flag">🇻🇳</div>
+    <h1>Hà Nội</h1>
+    <div class="hero-sub">河內 · 4 日慢旅行程</div>
+    <div class="hero-dates"><span>✈️</span><span>2025 . 04 . 17 — 04 . 20</span></div>
+  </div>
+</div>
+
+<div class="overall-progress" id="overallProgress">
+  <span class="progress-label">旅程進度</span>
+  <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar"></div></div>
+  <span class="progress-count" id="progressCount">0 / 0</span>
+</div>
+
+<div class="container" id="app"></div>
+
+<button class="reset-btn" onclick="resetAll()">↺ 重置全部</button>
+
+<div class="footer">Made with ❤️ for Hanoi · 祝旅途愉快 🌸</div>
+
+<script>
+const DAYS=[
+  {day:1,date:'4月17日（五）',title:'還劍湖 ＆ 老城區初探',cls:'day-1',sections:[
+    {label:'抵達 ✈️',items:[
+      {icon:'✈️',title:'航班 UO550',desc:'07:45 → 08:50 抵達河內內排機場',tag:'flight',tagText:'航班'},
+      {icon:'🏨',title:'入住 Aurora Oriental',desc:'還劍湖畔，約 12:00 辦理入住',tag:'hotel',tagText:'住宿'},
+    ]},
+    {label:'下午 — 先北後南',items:[
+      {icon:'🍜',title:'Bún Chả Tá Hanoi',desc:'午餐 · 經典河內烤肉米線',tag:'food',tagText:'美食'},
+      {icon:'🏛️',title:'Ô Quan Chưởng',desc:'古城門 · 老城區東北角的歷史地標',tag:'sight',tagText:'景點'},
+      {icon:'🥖',title:'Bánh Mì 25',desc:'人氣法包 · 老城區必食',tag:'food',tagText:'美食'},
+      {icon:'💆',title:'Spas Hanoi / Orient Spa / ILY Beauty Spa',desc:'三選一 · 消除早機疲勞',tag:'spa',tagText:'SPA'},
+      {icon:'☕',title:'All Day Coffee',desc:'還劍湖一帶 · 歎杯咖啡稍休息',tag:'coffee',tagText:'咖啡'},
+      {icon:'🍫',title:'Maison Marou Flagship Hanoi',desc:'精品朱古力店 · 教堂旁邊',tag:'food',tagText:'甜品'},
+    ]},
+    {label:'黃昏至夜晚',items:[
+      {icon:'⛪',title:'St. Joseph Cathedral',desc:'約 18:00–18:30 黃昏亮燈 · 影夜景',tag:'sight',tagText:'景點'},
+      {icon:'🍽️',title:'Bún Chả Đắc Kim',desc:'晚餐 · 另一家經典烤肉米線',tag:'food',tagText:'美食'},
+      {icon:'🍺',title:'Tạ Hiện Beer Street',desc:'啤酒街 · 宵夜收尾感受河內夜生活',tag:'bar',tagText:'夜生活'},
+    ]}
+  ]},
+  {day:2,date:'4月18日（六）',title:'火車街 × 歷史文化 × 西湖 × 高空夜景',cls:'day-2',sections:[
+    {label:'早上',items:[
+      {icon:'🍜',title:'Phở Bát Đàn 7 Món',desc:'早餐 · 建議 7:00 前到排隊',tag:'food',tagText:'美食'},
+      {icon:'🏨',title:'退房 Aurora Oriental',desc:'收拾行李準備轉酒店',tag:'hotel',tagText:'住宿'},
+      {icon:'🏨',title:'入住 Fairmont Hanoi',desc:'放下行李',tag:'hotel',tagText:'住宿'},
+      {icon:'🚂',title:'Hanoi Train Street ＋ Railway Tuan Cafe',desc:'請提前查當日火車時刻表',tag:'sight',tagText:'景點'},
+    ]},
+    {label:'中午至下午 — 由南往北',items:[
+      {icon:'🏛️',title:'文廟 — 國子監',desc:'火車街往南步行約 15 分鐘',tag:'sight',tagText:'景點'},
+      {icon:'🍡',title:'Xôi chè bà Thìn',desc:'午餐小食 · 回程路上順道',tag:'food',tagText:'美食'},
+      {icon:'🏯',title:'昇龍皇城遺址',desc:'Ba Đình 區 · 世界文化遺產',tag:'sight',tagText:'景點'},
+      {icon:'🏛️',title:'越南主席府 ＋ 胡志明故居',desc:'開放 7:30–11:00 及 13:30–16:00',tag:'sight',tagText:'景點'},
+      {icon:'💆',title:'Sen Spa / Orient Spa / Estheva Spa',desc:'三選一 · 歷史巡禮後放鬆身心',tag:'spa',tagText:'SPA'},
+    ]},
+    {label:'傍晚 — 西湖一帶',items:[
+      {icon:'⛩️',title:'真武觀 Quan Thanh Temple',desc:'西湖南端',tag:'sight',tagText:'景點'},
+      {icon:'🛕',title:'鎮國寺 Tran Quoc Pagoda',desc:'Thanh Niên 路上 · 河內最古老佛寺',tag:'sight',tagText:'景點'},
+      {icon:'🌅',title:'西湖漫步',desc:'沿湖散步享受黃昏',tag:'sight',tagText:'景點'},
+    ]},
+    {label:'晚上',items:[
+      {icon:'🍜',title:'Bún Chả Tá Hanoi',desc:'晚餐',tag:'food',tagText:'美食'},
+      {icon:'🌃',title:'Sky Lotte Observation Deck',desc:'Lotte Center 頂層 · 俯瞰河內夜景',tag:'sight',tagText:'景點'},
+    ]}
+  ]},
+  {day:3,date:'4月19日（日）',title:'古街漫遊 ＆ 咖啡文化',cls:'day-3',sections:[
+    {label:'全日 — 老城區輕鬆遊',note:'今日行程集中在老城區，節奏輕鬆，為翌日早機作準備。',items:[
+      {icon:'🚂',title:'Train Street Coffee',desc:'早上再訪火車街咖啡店',tag:'coffee',tagText:'咖啡'},
+      {icon:'☕',title:'Café Giảng',desc:'蛋咖啡創始店 · Nguyễn Hữu Huân 街',tag:'coffee',tagText:'咖啡'},
+      {icon:'🍜',title:'Phở Gà Nguyệt',desc:'雞肉河粉 · 午餐',tag:'food',tagText:'美食'},
+      {icon:'🛍️',title:'三十六古街 ＋ 河內老城區',desc:'慢逛、購物、買手信',tag:'shop',tagText:'購物'},
+      {icon:'💆',title:'Serene Spa Hanoi',desc:'旅程最後一次 Spa · 好好放鬆',tag:'spa',tagText:'SPA'},
+      {icon:'🛒',title:'BRGMart',desc:'超市補貨 · 買齊伴手禮和零食',tag:'shop',tagText:'購物'},
+    ]}
+  ]},
+  {day:4,date:'4月20日（一）',title:'回程',cls:'day-4',sections:[
+    {label:'早上 ✈️',note:'建議最遲 06:30 出發往機場（車程約 45 分鐘，預留安全時間）。',items:[
+      {icon:'✈️',title:'航班 UO541',desc:'09:35 → 12:40 · 回家啦 🏠',tag:'flight',tagText:'航班'},
+    ]}
+  ]}
+];
+
+let checks={};
+
+function getTotalItems(){let t=0;DAYS.forEach(d=>d.sections.forEach(s=>t+=s.items.length));return t;}
+function getCheckedCount(){return Object.values(checks).filter(Boolean).length;}
+function getDayItems(di){let items=[];DAYS[di].sections.forEach((s,si)=>{s.items.forEach((_,ii)=>{items.push(`d${di}_s${si}_i${ii}`);});});return items;}
+function getDayProgress(di){const keys=getDayItems(di);const done=keys.filter(k=>checks[k]).length;return{done,total:keys.length};}
+
+function updateProgress(){
+  const total=getTotalItems(),done=getCheckedCount(),pct=total>0?(done/total*100):0;
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressCount').textContent=`${done} / ${total}`;
+  DAYS.forEach((_,di)=>{
+    const prog=getDayProgress(di);
+    const ring=document.getElementById(`ring-${di}`);
+    if(ring){const c=2*Math.PI*14;ring.style.strokeDashoffset=c-(prog.total>0?(prog.done/prog.total):0)*c;}
+  });
+}
+
+function handleCheck(key){
+  checks[key]=!checks[key];
+  const cb=document.getElementById('cb-'+key);
+  const item=cb.closest('.tl-item');
+  cb.checked=checks[key];
+  if(checks[key]){
+    item.classList.add('checked');
+    cb.closest('.tl-checkbox').classList.add('cb-pop');
+    setTimeout(()=>cb.closest('.tl-checkbox').classList.remove('cb-pop'),300);
+  }else{
+    item.classList.remove('checked');
+  }
+  updateProgress();
+}
+
+function toggleDay(di){document.getElementById(`day-${di}`).classList.toggle('open');}
+
+function resetAll(){
+  checks={};
+  document.querySelectorAll('.tl-item.checked').forEach(el=>el.classList.remove('checked'));
+  document.querySelectorAll('.tl-checkbox input').forEach(el=>el.checked=false);
+  updateProgress();
+}
+
+function render(){
+  const app=document.getElementById('app');
+  const svgCheck='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg>';
+  let html='';
+  DAYS.forEach((day,di)=>{
+    const circ=2*Math.PI*14;
+    html+=`<div class="day-card ${day.cls} open" id="day-${di}">
+      <div class="day-header" onclick="toggleDay(${di})">
+        <div class="day-num">D${day.day}</div>
+        <div class="day-info"><div class="day-title">${day.title}</div><div class="day-subtitle">${day.date}</div></div>
+        <div class="day-progress-mini">
+          <svg class="day-progress-ring" viewBox="0 0 36 36">
+            <circle class="day-progress-ring-bg" cx="18" cy="18" r="14" fill="none" stroke-width="3"/>
+            <circle class="day-progress-ring-fill" id="ring-${di}" cx="18" cy="18" r="14" fill="none" stroke-width="3" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${circ}"/>
+          </svg>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="day-body"><div class="day-body-inner">`;
+    day.sections.forEach((sec,si)=>{
+      html+=`<div class="section-label"><span>${sec.label}</span></div>`;
+      if(sec.note) html+=`<div class="note-box">💡 ${sec.note}</div>`;
+      sec.items.forEach((item,ii)=>{
+        const key=`d${di}_s${si}_i${ii}`;
+        html+=`<div class="tl-item">
+          <label class="tl-checkbox" onclick="event.stopPropagation()">
+            <input type="checkbox" id="cb-${key}" onchange="handleCheck('${key}')">
+            <div class="cb-visual">${svgCheck}</div>
+          </label>
+          <span class="tl-icon">${item.icon}</span>
+          <div class="tl-content" onclick="handleCheck('${key}')">
+            <div class="tl-title">${item.title}</div>
+            ${item.desc?`<div class="tl-desc">${item.desc}</div>`:''}
+            <span class="tl-tag tag-${item.tag}">${item.tagText}</span>
+          </div>
+        </div>`;
+      });
+    });
+    html+=`</div></div></div>`;
+  });
+  app.innerHTML=html;
+  updateProgress();
+}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('overallProgress').classList.toggle('scrolled',window.scrollY>10);
+});
+
+render();
+</script>
+</body>
+</html>
