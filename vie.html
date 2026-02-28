@@ -36,6 +36,11 @@
   .hero-sub{color:rgba(255,255,255,.85);font-size:15px;font-weight:300;letter-spacing:1px;margin-bottom:24px;}
   .hero-dates{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);padding:10px 24px;border-radius:40px;color:#fff;font-size:14px;font-weight:500;}
 
+  /* BACK BUTTON in hero */
+  .back-btn-hero{position:absolute;top:16px;left:16px;z-index:2;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:8px 16px;border-radius:40px;transition:all .25s;font-family:'Noto Sans TC',sans-serif;}
+  .back-btn-hero:hover{background:rgba(255,255,255,.32);transform:translateX(-2px);}
+  .back-btn-hero svg{width:16px;height:16px;flex-shrink:0;}
+
   /* PROGRESS BAR */
   .overall-progress{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--c-border);padding:12px 24px;display:flex;align-items:center;gap:14px;transition:box-shadow .3s;}
   .overall-progress.scrolled{box-shadow:var(--shadow-md);}
@@ -118,24 +123,34 @@
 
   .footer{text-align:center;padding:40px 24px;font-size:12px;color:var(--c-muted);}
 
-  .reset-btn{position:fixed;bottom:24px;right:24px;background:var(--c-accent4);color:#fff;border:none;font-size:13px;cursor:pointer;box-shadow:var(--shadow-lg);z-index:99;transition:transform .2s,background .2s;display:flex;align-items:center;gap:6px;padding:12px 18px;border-radius:40px;font-family:'Noto Sans TC',sans-serif;font-weight:600;}
-  .reset-btn:hover{transform:scale(1.05);background:#1a3a47;}
-  .reset-btn:active{transform:scale(.95);}
+  /* FIXED BUTTONS */
+  .fixed-btns{position:fixed;bottom:24px;right:24px;z-index:99;display:flex;gap:10px;align-items:center;}
+  .fab{background:var(--c-accent4);color:#fff;border:none;font-size:13px;cursor:pointer;box-shadow:var(--shadow-lg);transition:transform .2s,background .2s;display:flex;align-items:center;gap:6px;padding:12px 18px;border-radius:40px;font-family:'Noto Sans TC',sans-serif;font-weight:600;text-decoration:none;}
+  .fab:hover{transform:scale(1.05);background:#1a3a47;}
+  .fab:active{transform:scale(.95);}
+  .fab.home-fab{background:linear-gradient(135deg,#2a9d8f,#264653);}
+  .fab.home-fab:hover{background:linear-gradient(135deg,#21867a,#1a3a47);}
 
   @media(max-width:480px){
-    .hero{padding:48px 16px 36px;}
+    .hero{padding:56px 16px 36px;}
+    .back-btn-hero{top:12px;left:12px;font-size:13px;padding:7px 14px;}
     .day-header{padding:16px;gap:12px;}
     .day-num{width:44px;height:44px;font-size:18px;border-radius:12px;}
     .day-title{font-size:15px;}
     .day-body-inner{padding:0 16px 20px;}
     .tl-item{gap:10px;padding:8px 8px;}
-    .reset-btn{bottom:16px;right:16px;padding:10px 14px;font-size:12px;}
+    .fixed-btns{bottom:16px;right:16px;gap:8px;}
+    .fab{padding:10px 14px;font-size:12px;}
   }
 </style>
 </head>
 <body>
 
 <div class="hero">
+  <a href="index.html" class="back-btn-hero">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    返回主頁
+  </a>
   <div class="hero-content">
     <div class="hero-flag">🇻🇳</div>
     <h1>Hà Nội</h1>
@@ -152,7 +167,10 @@
 
 <div class="container" id="app"></div>
 
-<button class="reset-btn" onclick="resetAll()">↺ 重置全部</button>
+<div class="fixed-btns">
+  <a href="index.html" class="fab home-fab">🏠 主頁</a>
+  <button class="fab" onclick="resetAll()">↺ 重置</button>
+</div>
 
 <div class="footer">Made with ❤️ for Hanoi · 祝旅途愉快 🌸</div>
 
