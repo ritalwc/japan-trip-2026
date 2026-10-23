@@ -92,9 +92,44 @@
           "link": "",
           "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSIrLEUAfWZEclk-0nczOxmq_mtv333opfLdRwmB6LZg&s=10",
           "checked": false
+        },
+        {
+          "name": "La Vieja Fabrica 果醬",
+          "link": "英國宮百貨",
+          "image": "https://vivianexplore.tw/wp-content/uploads/2019/05/La-Vieja-Fabrica-果醬.jpg",
+          "checked": false
+        },
+        {
+          "name": "HORNIMANS 茶包 洋甘菊蜂蜜",
+          "link": "英國宮百貨",
+          "image": "https://vivianexplore.tw/wp-content/uploads/2019/05/HORNIMANS-1.jpg",
+          "checked": false
+        },
+        {
+          "name": "alma花草茶包",
+          "link": "英國宮百貨",
+          "image": "https://vivianexplore.tw/wp-content/uploads/2019/05/alma花草茶包.jpg",
+          "checked": false
+        },
+        {
+          "name": "Marcilla 咖啡",
+          "link": "英國宮百貨",
+          "image": "https://vivianexplore.tw/wp-content/uploads/2019/05/Marcilla-coffee.jpg",
+          "checked": false
+        }
+      ]
+    },
+    {
+      "name": "藥妝",
+      "items": [
+        {
+          "name": "Suavina 馬卡龍護唇膏",
+          "link": "",
+          "image": "https://wheninbcn.com/wp-content/uploads/2023/02/suavina-crema-manos-1-alta_1024x1024.webp",
+          "checked": false
         }
       ]
     }
   ],
-  "lastUpdated": "2026-10-23T05:43:44.452Z"
+  "lastUpdated": "2026-10-23T05:53:26.800Z"
 }
