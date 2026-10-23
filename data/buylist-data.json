@@ -152,6 +152,36 @@
           "link": "",
           "image": "",
           "checked": false
+        },
+        {
+          "name": "品客薯片火腿味",
+          "link": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDIRhCHP7EVqJnzwWZbAPqwb49SN4DsvqdHMNwPrCy4zIeBbseXyQw0NU&s=10",
+          "checked": false
+        },
+        {
+          "name": "Caro 水果朱古力",
+          "link": "",
+          "image": "https://www.carochocolate.es/wp-content/uploads/2024/08/11.png",
+          "checked": false
+        },
+        {
+          "name": "各種抹醬",
+          "link": "",
+          "image": "",
+          "checked": false
+        },
+        {
+          "name": "各種海鮮罐頭",
+          "link": "",
+          "image": "",
+          "checked": false
+        },
+        {
+          "name": "黑標火腿",
+          "link": "",
+          "image": "",
+          "checked": false
         }
       ]
     },
@@ -202,5 +232,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-10-23T06:10:00.474Z"
+  "lastUpdated": "2026-10-23T17:54:58.180Z"
 }
