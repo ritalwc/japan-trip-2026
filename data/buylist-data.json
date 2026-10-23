@@ -50,9 +50,51 @@
           "link": "",
           "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh7LKWAfKn34IW2i5SZrR1FqzRn2ZML4KIqPJDGrUoFw&s=10",
           "checked": false
+        },
+        {
+          "name": "Bicentury Tortitas 酥脆玉米餅",
+          "link": "",
+          "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSyzA_8Z_94a4XZBBIiv8dyG1Wyk_9yyCx9jIxsc-72-UOdFe42JYjeTlsxWgKZ5tdwCHcPrZo2ng&usqp=CAc",
+          "checked": false
+        },
+        {
+          "name": "Mikso Chips de verduras 蔬菜洋芋片",
+          "link": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-DEQZSOP_rmXZT468sSJOtC7zwZuw0cc6iVFN4FVqWA&s=10",
+          "checked": false
+        },
+        {
+          "name": "Snatt’s Palitos de pan 脆皮麵包棒",
+          "link": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjeWz2yvod5l292N5JtxBAPJzHyOdsn8RVwdBLhmD0cA&s=10",
+          "checked": false
+        },
+        {
+          "name": "Takis 墨西哥辣味玉米脆餅",
+          "link": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2iigKO3m88evX25ftNjkNGI8CI22Zl_ywj2KcrnoSJw&s=10",
+          "checked": false
+        },
+        {
+          "name": "Chicharrones de cerdo 炸豬皮",
+          "link": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv-e_mhPPxbbblsSmiYSO2qcvPNgroge43pGwWqh-rlA&s=10",
+          "checked": false
+        },
+        {
+          "name": "醃漬巴斯克小辣椒 Piparra",
+          "link": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSts86VGYYwVXhXpTuiKJIK8aZJ-Qbp5v7DLpo5fiyE2g&s=10",
+          "checked": false
+        },
+        {
+          "name": "鱈魚肝罐頭 Hígado de bacalao",
+          "link": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSIrLEUAfWZEclk-0nczOxmq_mtv333opfLdRwmB6LZg&s=10",
+          "checked": false
         }
       ]
     }
   ],
-  "lastUpdated": "2026-10-23T04:53:58.902Z"
+  "lastUpdated": "2026-10-23T05:43:44.452Z"
 }
