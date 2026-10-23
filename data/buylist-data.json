@@ -116,6 +116,42 @@
           "link": "英國宮百貨",
           "image": "https://vivianexplore.tw/wp-content/uploads/2019/05/Marcilla-coffee.jpg",
           "checked": false
+        },
+        {
+          "name": "Torras、Valor巧克力塊與巧克力粉",
+          "link": "英國宮百貨",
+          "image": "https://vivianexplore.tw/wp-content/uploads/2019/05/Torras、Valor巧克力塊與巧克力粉.jpg",
+          "checked": false
+        },
+        {
+          "name": "Membrillo榅桲醬",
+          "link": "",
+          "image": "https://ohwanderlin.com/wp-content/uploads/2025/07/wp-17531312911943933796188878320089-1024x756.jpg",
+          "checked": false
+        },
+        {
+          "name": "Alcachofa菜薊",
+          "link": "",
+          "image": "https://ohwanderlin.com/wp-content/uploads/2019/12/pt2019_12_12_23_38_21-768x1024.jpg",
+          "checked": false
+        },
+        {
+          "name": "米酒",
+          "link": "",
+          "image": "https://ohwanderlin.com/wp-content/uploads/2019/12/20181227_172852-1024x768.jpg",
+          "checked": false
+        },
+        {
+          "name": "即食海鮮飯包",
+          "link": "",
+          "image": "",
+          "checked": false
+        },
+        {
+          "name": "西班牙火腿",
+          "link": "",
+          "image": "",
+          "checked": false
         }
       ]
     },
@@ -127,9 +163,44 @@
           "link": "",
           "image": "https://wheninbcn.com/wp-content/uploads/2023/02/suavina-crema-manos-1-alta_1024x1024.webp",
           "checked": false
+        },
+        {
+          "name": "ISDIN（怡思丁）水感防曬液",
+          "link": "",
+          "image": "https://vivianexplore.tw/wp-content/uploads/2019/05/ISDIN（怡思丁）水感防曬液-1.jpg",
+          "checked": false
+        },
+        {
+          "name": "La Chinata 橄欖皂",
+          "link": "",
+          "image": "",
+          "checked": false
+        }
+      ]
+    },
+    {
+      "name": "衣",
+      "items": [
+        {
+          "name": "Pull and Bear",
+          "link": "",
+          "image": "",
+          "checked": false
+        },
+        {
+          "name": "lefties",
+          "link": "",
+          "image": "",
+          "checked": false
+        },
+        {
+          "name": "primemark 宮",
+          "link": "",
+          "image": "",
+          "checked": false
         }
       ]
     }
   ],
-  "lastUpdated": "2026-10-23T05:53:26.800Z"
+  "lastUpdated": "2026-10-23T06:10:00.474Z"
 }
