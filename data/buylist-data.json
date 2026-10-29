@@ -7,7 +7,7 @@
           "name": "Ines Rosales 橄欖油脆餅",
           "link": "",
           "image": "https://wheninbcn.com/wp-content/uploads/2023/02/4a9a1b92-86e1-453a-9344-5f46761f4507-edited.jpeg",
-          "checked": false
+          "checked": true
         },
         {
           "name": "Bombons Cudié – Catànies 巧克力杏仁",
@@ -31,13 +31,13 @@
           "name": "Turrón （杏仁糖）",
           "link": "",
           "image": "https://wheninbcn.com/wp-content/uploads/2023/01/screenshot-lacampanadesde1890.com-2023.01.31-18_16_08-edited.png",
-          "checked": false
+          "checked": true
         },
         {
           "name": "Rabitos Royale – Bombon de higo 無花果巧克力",
           "link": "El Corte Inglés Club del Gourmet",
           "image": "https://wheninbcn.com/wp-content/uploads/2023/02/img_5670.jpg",
-          "checked": false
+          "checked": true
         },
         {
           "name": "Lays Patatas Fritas — Campesinas 田園口味洋芋片",
@@ -49,13 +49,13 @@
           "name": "Ruffles Patatas Fritas — Jamón 火腿口味洋芋片",
           "link": "",
           "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh7LKWAfKn34IW2i5SZrR1FqzRn2ZML4KIqPJDGrUoFw&s=10",
-          "checked": false
+          "checked": true
         },
         {
           "name": "Bicentury Tortitas 酥脆玉米餅",
           "link": "",
           "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSyzA_8Z_94a4XZBBIiv8dyG1Wyk_9yyCx9jIxsc-72-UOdFe42JYjeTlsxWgKZ5tdwCHcPrZo2ng&usqp=CAc",
-          "checked": false
+          "checked": true
         },
         {
           "name": "Mikso Chips de verduras 蔬菜洋芋片",
@@ -67,7 +67,7 @@
           "name": "Snatt’s Palitos de pan 脆皮麵包棒",
           "link": "",
           "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjeWz2yvod5l292N5JtxBAPJzHyOdsn8RVwdBLhmD0cA&s=10",
-          "checked": false
+          "checked": true
         },
         {
           "name": "Takis 墨西哥辣味玉米脆餅",
@@ -79,7 +79,7 @@
           "name": "Chicharrones de cerdo 炸豬皮",
           "link": "",
           "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv-e_mhPPxbbblsSmiYSO2qcvPNgroge43pGwWqh-rlA&s=10",
-          "checked": false
+          "checked": true
         },
         {
           "name": "醃漬巴斯克小辣椒 Piparra",
@@ -97,7 +97,7 @@
           "name": "La Vieja Fabrica 果醬",
           "link": "英國宮百貨",
           "image": "https://vivianexplore.tw/wp-content/uploads/2019/05/La-Vieja-Fabrica-果醬.jpg",
-          "checked": false
+          "checked": true
         },
         {
           "name": "HORNIMANS 茶包 洋甘菊蜂蜜",
@@ -127,7 +127,7 @@
           "name": "Membrillo榅桲醬",
           "link": "",
           "image": "https://ohwanderlin.com/wp-content/uploads/2025/07/wp-17531312911943933796188878320089-1024x756.jpg",
-          "checked": false
+          "checked": true
         },
         {
           "name": "Alcachofa菜薊",
@@ -145,7 +145,7 @@
           "name": "即食海鮮飯包",
           "link": "",
           "image": "",
-          "checked": false
+          "checked": true
         },
         {
           "name": "西班牙火腿",
@@ -169,13 +169,13 @@
           "name": "各種抹醬",
           "link": "",
           "image": "",
-          "checked": false
+          "checked": true
         },
         {
           "name": "各種海鮮罐頭",
           "link": "",
           "image": "",
-          "checked": false
+          "checked": true
         },
         {
           "name": "黑標火腿",
@@ -232,5 +232,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-10-23T17:54:58.180Z"
+  "lastUpdated": "2026-10-29T14:04:02.127Z"
 }
